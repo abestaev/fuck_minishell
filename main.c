@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/06/09 10:17:42 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/06/16 21:55:40 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	(void)env;
 	char *input;
-	
+	t_minishell minishell;
+
+	minishell = (t_minishell){0};	
 	while (1)
-	{
+	{	
 		input = readline("minishell >> ");
 		if (input == NULL)
 			return (printf("Error readline\n"), 1);

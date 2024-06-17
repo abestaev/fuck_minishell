@@ -1,9 +1,10 @@
-CC				= gcc
-RM				= rm -f
-CFLAGS			= -Wextra -Wall -Werror -Ofast -march=native
-LDFLAGS			= -L./libft/printf/ -L./libft/ -lreadline -lncurses -lftprintf -lft
+CC					= gcc
+RM					= rm -f
+CFLAGS				= -Wextra -Wall -Werror -Ofast -march=native
+LDFLAGS				= -L./libft/printf/ -L./libft/ -lreadline -lncurses -lftprintf -lft
+INCLUDE_PATH 		= ./includes/
 MINISHELL_NAME 		= minishell
-MINISHELL_SRCS		= parsing.c main.c
+MINISHELL_SRCS		= ./parsing/tokenizer.c ./parsing/tokenizer_utils.c main.c
 MINISHELL_OBJS 		= $(MINISHELL_SRCS:.c=.o)
 
 LIBFT_PATH = ./libft/
@@ -15,10 +16,10 @@ LIBFTPRINTF = $(LIBFTPRINTF_PATH)libftprintf.a
 all:			$(MINISHELL_NAME)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -I$(INCLUDE_PATH) -c $< -o $(<:.c=.o)
 
 $(MINISHELL_NAME):	$(MINISHELL_OBJS) $(LIBFT) $(LIBFTPRINTF)
-					$(CC) -o $(MINISHELL_NAME) $(MINISHELL_OBJS) $(CFLAGS) $(LDFLAGS)
+					$(CC) -o $(MINISHELL_NAME) $(MINISHELL_OBJS) $(CFLAGS) $(LDFLAGS) -I$(INCLUDE_PATH)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_PATH)
