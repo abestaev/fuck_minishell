@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:45:40 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/06/17 16:56:41 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:28:04 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	get_pipe(char *str, int i, t_token *token)
 	j = 0;
 	token->name = malloc(2 * sizeof(char));
 	if (!token->name)
-		return;
+		return (*token);
 	token->name[j] = str[i];
 	i++;
 	j++;
@@ -36,7 +36,7 @@ t_token	get_redir_single(char *str, int i, t_token *token)
 	j = 0;
 	token->name = malloc(2 * sizeof(char));
 	if (!token->name)
-		return;
+		return (*token);
 	token->name[j] = str[i];
 	i++;
 	j++;
@@ -53,7 +53,7 @@ t_token	get_redir_double(char *str, int i, t_token *token)
 	j = 0;
 	token->name = malloc(3 * sizeof(char));
 	if (!token->name)
-		return;
+		return (*token);
 	while (j < 2)
 	{
 		token->name[j] = str[i];
@@ -86,7 +86,7 @@ t_token get_word(char *str, int i, t_token *token)
 		i++;
 	token->name = malloc((i - j + 1) * sizeof(char));
 	if (!token->name)
-		return;
+		return (*token);
 	while (k < j)
 	{
 		token->name[k] = str[i];
