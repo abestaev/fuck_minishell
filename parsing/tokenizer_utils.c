@@ -6,95 +6,88 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:45:40 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/06/18 15:28:04 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:08:06 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	get_pipe(char *str, int i, t_token *token)
+t_token	*get_pipe(char *str, int *i, t_token *token)
 {
 	int	j;
 
 	j = 0;
 	token->name = malloc(2 * sizeof(char));
 	if (!token->name)
-		return (*token);
-	token->name[j] = str[i];
-	i++;
-	j++;
-	token->name[j] = 0;
+		return (NULL);
+	token->name[j] = str[*i];
+	(*i)++;
+	token->name[++j] = 0;
 	token->type = PIPE;
 	token->next = 0;
-	return (*token);
+	return (token);
 }
 
-t_token	get_redir_single(char *str, int i, t_token *token)
+t_token	*get_redir_single(char *str, int *i, t_token *token)
 {
 	int	j;
 
 	j = 0;
 	token->name = malloc(2 * sizeof(char));
 	if (!token->name)
-		return (*token);
-	token->name[j] = str[i];
-	i++;
-	j++;
-	token->name[j] = 0;
+		return (NULL);
+	token->name[j] = str[*i];
+	(*i)++;
+	token->name[++j] = 0;
 	token->type = REDIRECTION;
 	token->next = 0;
-	return (*token);
+	return (token);
 }
 
-t_token	get_redir_double(char *str, int i, t_token *token)
+t_token	*get_redir_double(char *str, int *i, t_token *token)
 {
 	int	j;
 
 	j = 0;
 	token->name = malloc(3 * sizeof(char));
 	if (!token->name)
-		return (*token);
+		return (NULL);
 	while (j < 2)
 	{
-		token->name[j] = str[i];
-		i++;
-		j++;
+		token->name[j++] = str[*i];
+		(*i)++;
 	}
 	token->name[j] = 0;
 	token->type = REDIRECTION;
 	token->next = 0;
-	return (*token);
+	return (token);
 }
 
-int is_delimitor(char *str, int i)
+int	is_delimitor(char *str, int i)
 {
 	if (str[i] == '|' || str[i] == '>' || str[i] == '<')
 		return (1);
-	else if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))	
+	else if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		return (1);
-	return(0);
+	return (0);
 }
 
-t_token get_word(char *str, int i, t_token *token)
+t_token	*get_word(char *str, int *i, t_token *token)
 {
-	int j;
-	int k;
+	int	j;
+	int	k;
 
 	k = 0;
-	j = i;
-	while (str[i] && !is_delimitor(str, i))
-		i++;
-	token->name = malloc((i - j + 1) * sizeof(char));
+	j = *i;
+	while (str[*i] && !is_delimitor(str, *i))
+		(*i)++;
+	token->name = malloc((*i - j + 1) * sizeof(char));
 	if (!token->name)
-		return (*token);
-	while (k < j)
-	{
-		token->name[k] = str[i];
-		i++;
-		k++;
-	}
+		return (NULL);
+	while (j < *i)
+		token->name[k++] = str[j++];
 	token->name[k] = 0;
 	token->type = WORD;
 	token->next = 0;
-	return (*token);
+	return (token);
 }
