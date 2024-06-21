@@ -4,7 +4,7 @@ CFLAGS				= -Wextra -Wall -Werror -Ofast -march=native
 LDFLAGS				= -L./libft/printf/ -L./libft/ -lreadline -lncurses -lftprintf -lft
 INCLUDE_PATH 		= ./includes/
 MINISHELL_NAME 		= minishell
-MINISHELL_SRCS		= ./parsing/tokenizer.c ./parsing/tokenizer_utils.c main.c
+MINISHELL_SRCS		= ./parsing/tokenizer.c ./parsing/tokenizer_utils.c ./parsing/automate.c main.c
 MINISHELL_OBJS 		= $(MINISHELL_SRCS:.c=.o)
 
 LIBFT_PATH = ./libft/
