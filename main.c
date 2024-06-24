@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pc <pc@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/06/20 23:19:21 by pc               ###   ########.fr       */
+/*   Updated: 2024/06/22 01:49:47 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void print_token(t_token *token)
+void	print_token(t_token *token)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (token != 0)
 	{
 		printf("token numero: %d, name: %s, type: %d\n ", i, token->name,
-			   token->type);
+			token->type);
 		token = token->next;
 		i++;
 	}
 }
 
-void free_token(t_token *token)
+void	free_token(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	while (token)
 	{
@@ -39,10 +39,10 @@ void free_token(t_token *token)
 	}
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	char *input;
-	t_minishell minishell;
+	char		*input;
+	t_minishell	minishell;
 
 	(void)ac;
 	(void)av;
