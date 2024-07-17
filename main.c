@@ -6,25 +6,11 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/06/22 01:49:47 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:00:56 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_token(t_token *token)
-{
-	int	i;
-
-	i = 0;
-	while (token != 0)
-	{
-		printf("token numero: %d, name: %s, type: %d\n ", i, token->name,
-			token->type);
-		token = token->next;
-		i++;
-	}
-}
 
 void	free_token(t_token *token)
 {
@@ -43,6 +29,7 @@ int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	t_minishell	minishell;
+	t_command	*tmp;
 
 	(void)ac;
 	(void)av;
@@ -52,13 +39,26 @@ int	main(int ac, char **av, char **env)
 	{
 		input = readline("minishell >> ");
 		if (input == NULL)
-			return (printf("Error readline\n"), 1);
+			return (0);
+		if (!(*input))
+		{
+			free(input);
+			continue ;
+		}
+		add_history(input);
 		tokenizer(input, &minishell);
-		print_token(minishell.token);
-		// tout le parsing
+		parsing(&minishell);
+		print_command(minishell.command);
+		while (minishell.command)
+		{
+			free_command(minishell.command);
+			tmp = minishell.command->next;
+			free(minishell.command);
+			minishell.command = tmp;
+		}
+		minishell.token = 0;
 		// toute l'exec
 		free(input);
 	}
-	free_token(minishell.token);
 	return (0);
 }

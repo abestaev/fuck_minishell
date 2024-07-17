@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/06/22 01:49:35 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:58:37 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ typedef struct s_command
 {
 	char				*command;
 	char				**arguments;
-	struct t_redir		*redirections;
+	t_redir				*redirections;
 	struct s_command	*next;
 }						t_command;
 
 typedef struct s_minishell
 {
-	struct s_token		*token;
-	struct s_command	*command;
+	t_token				*token;
+	t_command			*command;
 }						t_minishell;
 
 int						tokenizer(char *str, t_minishell *minishell);
@@ -73,5 +73,16 @@ bool					word_state(t_token *token);
 bool					pipe_state(t_token *token);
 bool					redir_state(t_token *token);
 void					free_token(t_token *token);
+int						parsing(t_minishell *minishell);
+t_pety					find_redir_type(char *str);
+int						add_redirection(t_command *command, t_token *token);
+int						add_arguments(t_command *command, t_token *token);
+void					command_add_back(t_command **command_list,
+							t_command *new_command);
+void					free_command(t_command *command);
+void print_tab(char **tab);
+void	print_token(t_token *token);
+void print_redir(t_redir *redirection);
+void	print_command(t_command *command);
 
 #endif
