@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/17 18:00:56 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:46:49 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	(void)env;
 	minishell = (t_minishell){0, 0};
+	if (!(isatty(1)))
+		return (0);
 	while (1)
 	{
 		input = readline("minishell >> ");

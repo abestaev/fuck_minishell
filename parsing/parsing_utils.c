@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/17 15:35:29 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:48:05 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@ t_pety	find_redir_type(char *str)
 {
 	if (!ft_strncmp(str, ">>", 2))
 		return (DOUBLE_OUT);
-	else if (!ft_strncmp(str, "<<", 2))
+	if (!ft_strncmp(str, "<<", 2))
 		return (HEREDOC);
-	else if (!ft_strncmp(str, ">", 1))
+	if (!ft_strncmp(str, ">", 1))
 		return (SINGLE_OUT);
-	else
-		return (SINGLE_IN);
+	return (SINGLE_IN);
 }
 
 int	add_redirection(t_command *command, t_token *token)
@@ -67,7 +66,7 @@ int	add_arguments(t_command *command, t_token *token)
 	else
 	{
 		i = -1;
-		while(command->arguments[++i])
+		while (command->arguments[++i])
 			new_arguments[i] = command->arguments[i];
 		new_arguments[i] = ft_strdup(token->name);
 	}
@@ -97,7 +96,7 @@ void	command_add_back(t_command **command_list, t_command *new_command)
 
 void	free_command(t_command *command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (command->arguments)

@@ -6,11 +6,33 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:00:59 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/17 17:56:24 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:34:46 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_token	*quote_word(char *str, int *i, t_token *token, char c)
+{
+	int	j;
+	int	k;
+
+	k = 0;
+	j = *i;
+	(*i)++;
+	while (str[*i] && str[*i] != c)
+		(*i)++;
+	(*i)++;
+	token->name = malloc((*i - j + 1) * sizeof(char));
+	if (!token->name)
+		return (NULL);
+	while (j < *i)
+		token->name[k++] = str[j++];
+	token->name[k] = 0;
+	token->type = WORD;
+	token->next = 0;
+	return (token);
+}
 
 void	ft_lstadd_back(t_token **token, t_token *new)
 {

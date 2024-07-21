@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:45:40 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/06/19 19:08:06 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:53:19 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	is_delimitor(char *str, int i)
 {
 	if (str[i] == '|' || str[i] == '>' || str[i] == '<')
 		return (1);
-	else if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		return (1);
 	return (0);
 }
@@ -79,6 +79,8 @@ t_token	*get_word(char *str, int *i, t_token *token)
 
 	k = 0;
 	j = *i;
+	if (str[*i] == '"' || str[*i] == '\'')
+		return (quote_word(str, i, token, str[*i]));
 	while (str[*i] && !is_delimitor(str, *i))
 		(*i)++;
 	token->name = malloc((*i - j + 1) * sizeof(char));

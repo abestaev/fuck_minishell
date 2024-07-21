@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/17 17:58:37 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:54:14 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ int						add_arguments(t_command *command, t_token *token);
 void					command_add_back(t_command **command_list,
 							t_command *new_command);
 void					free_command(t_command *command);
-void print_tab(char **tab);
-void	print_token(t_token *token);
-void print_redir(t_redir *redirection);
-void	print_command(t_command *command);
+void					print_tab(char **tab);
+void					print_token(t_token *token);
+void					print_redir(t_redir *redirection);
+void					print_command(t_command *command);
+t_token					*quote_word(char *str, int *i, t_token *token, char c);
 
 #endif

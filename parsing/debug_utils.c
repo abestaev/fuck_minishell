@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:55:42 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/17 17:58:17 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:46:30 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,32 @@ void	print_token(t_token *token)
 	}
 }
 
-void print_tab(char **tab)
+void	print_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		printf("	%d: %s\n", i, tab[i]);
 		++i;
 	}
 }
 
-void print_redir(t_redir *redirection)
+void	print_redir(t_redir *redirection)
 {
-	int i;
-	char *tab[4];
+	int		i;
+	char	*tab[4];
 
 	i = 0;
 	tab[0] = "single_out";
 	tab[1] = "single_in";
 	tab[2] = "double_out";
 	tab[3] = "heredoc";
-	while(redirection)
+	while (redirection)
 	{
-		printf("redirection numero: %d, type: %s, file: %s\n", i, tab[redirection->type], redirection->file);
+		printf("redirection numero: %d, type: %s, file: %s\n", i,
+			tab[redirection->type], redirection->file);
 		redirection = redirection->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:38:42 by ssitchsa          #+#    #+#             */
-/*   Updated: 2023/12/05 17:56:55 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:25:21 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	}
 	return (result);
 }
-
