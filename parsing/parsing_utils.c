@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/20 12:48:05 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:09:29 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	add_arguments(t_command *command, t_token *token)
 	i = 0;
 	while (command->arguments && command->arguments[i] != NULL)
 		i++;
-	new_arguments = malloc((i + 2) * sizeof(char *));
+	new_arguments = ft_calloc((sizeof (char *)), (i + 2));
 	if (!new_arguments)
 		return (1);
 	if (!command->arguments)
