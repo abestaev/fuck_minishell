@@ -11,7 +11,7 @@ BONUS =	ft_lstadd_back.c ft_lstadd_front.c ft_lstmap.c\
 		 ft_lstlast.c ft_lstclear.c ft_lstiter.c\
 		 ft_lstnew.c ft_lstsize.c ft_lstdelone.c\
 
-SRCS = ${LIBC} ${ADDITIONAL}
+SRCS = ${LIBC} ${ADDITIONAL} ${BONUS}
 
 SRCSALL = ${LIBC} ${ADDITIONAL} ${BONUS}
 
@@ -21,7 +21,7 @@ OBJSALL = ${SRCSALL:.c=.o}
 
 LIB = libft.a
 
-CC = gcc	
+CC = cc	
 
 CFLAGS = -Wall -Werror -Wextra -I ./ -Ofast -march=native
 
@@ -47,6 +47,6 @@ re:		fclean
 
 so:
 	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCSALL)
-	gcc -nostartfiles -shared -o libft.so $(OBJSALL)
+	cc -nostartfiles -shared -o libft.so $(OBJSALL)
 
 .PHONY: all clean fclean re bonus
