@@ -5,7 +5,7 @@ LDFLAGS				= -L./libft/printf/ -L./libft/ -lreadline -lncurses -lftprintf -lft
 INCLUDE_PATH 		= ./includes/
 MINISHELL_NAME 		= minishell
 MINISHELL_SRCS		= ./parsing/tokenizer.c ./parsing/tokenizer_utils.c ./parsing/automate.c ./parsing/parsing.c \
-					./parsing/parsing_utils.c ./parsing/debug_utils.c main.c ./builtin/env.c
+					./parsing/parsing_utils.c ./parsing/debug_utils.c main.c ./builtin/env.c ./exec/get_env.c
 MINISHELL_OBJS 		= $(MINISHELL_SRCS:.c=.o)
 
 LIBFT_PATH = ./libft/

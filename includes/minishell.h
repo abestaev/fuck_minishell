@@ -20,6 +20,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+} t_bool;
+
 typedef enum e_type
 {
 	WORD,
@@ -66,6 +73,8 @@ typedef struct s_env
 typedef struct s_minishell
 {
 	t_list				*env;
+	char	**env_tab;
+	bool	env_changed;
 	t_token				*token;
 	t_command			*command;
 }						t_minishell;
@@ -97,6 +106,7 @@ t_token					*quote_word(char *str, int *i, t_token *token, char c);
 void	get_env(t_minishell *minishell, char **env);
 t_env  *new_var(char *name, char *value);
 void    print_env(t_minishell *minishell);
+char    **env_to_tab(t_list *env);
 
 
 #endif
