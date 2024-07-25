@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/23 21:50:16 by albestae         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:20:57 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	(void)env;
 	//to do: add proper initialization
-	minishell = (t_minishell){0, 0, 0, 0, 0};
+	minishell = (t_minishell){0, 0, 0, 0, 0, 0};
 	if (!(isatty(1)))
 		return (0);
 	while (1)
@@ -65,11 +65,9 @@ int	main(int ac, char **av, char **env)
 		// gestion env, TODO: deplacer dans init
 		minishell.env = NULL;
 		minishell.env_changed = FALSE;
-		get_env(&minishell, env);
+		copy_env(&minishell, env);
 		minishell.env_tab = env_to_tab(minishell.env);
-
-
-
+		minishell.path = get_path(minishell.env);
 
 		free(input);
 	}

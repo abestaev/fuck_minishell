@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	get_env(t_minishell *minishell, char **env)
+void	copy_env(t_minishell *minishell, char **env)
 {
 	int			i;
 	int 		j;
@@ -68,4 +68,16 @@ char    **env_to_tab(t_list *env)
     return (tab);
 }
 
-// update env a chaque appel exec
+bool	var_exist(t_list *env, char *name)
+{
+	t_list	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(((t_env *)tmp->content)->name, name))
+			return (TRUE);
+		tmp = tmp->next;
+	}
+	return (FALSE);
+}

@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/23 21:37:57 by albestae         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:51:10 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_minishell
 {
 	t_list				*env;
 	char	**env_tab;
+	char	**path;
 	bool	env_changed;
 	t_token				*token;
 	t_command			*command;
@@ -103,10 +104,11 @@ void					print_command(t_command *command);
 t_token					*quote_word(char *str, int *i, t_token *token, char c);
 
 // env
-void	get_env(t_minishell *minishell, char **env);
+void	copy_env(t_minishell *minishell, char **env);
 t_env  *new_var(char *name, char *value);
 void    print_env(t_minishell *minishell);
 char    **env_to_tab(t_list *env);
-
+bool	var_exist(t_list *env, char *name);
+char    **get_path(t_list *env);
 
 #endif
