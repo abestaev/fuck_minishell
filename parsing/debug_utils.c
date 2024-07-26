@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wojak <wojak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:55:42 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/21 18:12:08 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/07/26 01:56:21 by wojak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ void	print_redir(t_redir *redirection)
 void	print_command(t_command *command)
 {
 	int	i;
-
+	t_command *tmp;
+	
 	i = 0;
+	tmp = command;
 	while (command != 0)
 	{
 		printf("--------------COMMAND-------------\n");
@@ -72,4 +74,5 @@ void	print_command(t_command *command)
 		command = command->next;
 		i++;
 	}
+	command = tmp;
 }
