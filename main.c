@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wojak <wojak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/26 02:22:49 by wojak            ###   ########.fr       */
+/*   Updated: 2024/07/31 20:04:49 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,20 @@ void	free_token(t_token *token)
 	}
 }
 
+void init_env(t_minishell *minishell, char **env)
+{
+	minishell->env = NULL;
+	minishell->env_changed = FALSE;
+	copy_env(minishell, env);
+	minishell->env_tab = env_to_tab(minishell->env);
+	minishell->path = get_path(minishell->env);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	t_minishell	minishell;
-	// t_command	*tmp;
+	t_command	*tmp;
 
 	(void)ac;
 	(void)av;
@@ -55,27 +64,19 @@ int	main(int ac, char **av, char **env)
 		minishell.token = 0;
 		// toute l'exec
 
-		// gestion env, TODO: deplacer dans init
-		minishell.env = NULL;
-		minishell.env_changed = FALSE;
-		copy_env(&minishell, env);
-		minishell.env_tab = env_to_tab(minishell.env);
-		minishell.path = get_path(minishell.env);
-
-		// test exec
-		pid_t pid;
-		pid = fork();
-		if (pid == 0)
-			exec_cmd(&minishell);
+		init_env(&minishell, env);
+		run(&minishell);
 		// printf("commande executee\n");
+
+		
 		// free
-		// while (minishell.command)
-		// {
-		// 	free_command(minishell.command);
-		// 	tmp = minishell.command->next;
-		// 	free(minishell.command);
-		// 	minishell.command = tmp;
-		// }
+		while (minishell.command)
+		{
+			free_command(minishell.command);
+			tmp = minishell.command->next;
+			free(minishell.command);
+			minishell.command = tmp;
+		}
 		free(input);
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wojak <wojak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/26 01:43:56 by wojak            ###   ########.fr       */
+/*   Updated: 2024/07/31 19:32:09 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 
 
 typedef enum e_bool
@@ -116,6 +117,7 @@ bool	var_exist(t_list *env, char *name);
 char    **get_path(t_list *env);
 
 // exec
+int run(t_minishell *minishell);
 int exec_cmd(t_minishell *minishell);
 
 #endif

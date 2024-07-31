@@ -3,15 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wojak <wojak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 01:29:33 by wojak             #+#    #+#             */
-/*   Updated: 2024/07/26 02:24:07 by wojak            ###   ########.fr       */
+/*   Updated: 2024/07/31 19:30:53 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+int run(t_minishell *minishell)
+{
+    pid_t pid;
+    int status;
+
+    pid = fork();
+    if (pid == -1)
+    {
+        ft_putstr_fd("fork failed\n", 2);
+        return (1);
+    }
+    if (pid == 0)
+    {
+        if (exec_cmd(minishell))
+        {
+            ft_putstr_fd("command not found\n", 2);
+            exit(1);
+        }
+    }
+    else
+    {
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status))
+            return (WEXITSTATUS(status));
+    }
+    return (0);
+}
 int exec_cmd(t_minishell *minishell)
 {
     size_t i;
