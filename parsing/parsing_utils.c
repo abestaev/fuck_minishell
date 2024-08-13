@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/21 18:09:29 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:22:35 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	add_arguments(t_command *command, t_token *token)
 	i = 0;
 	while (command->arguments && command->arguments[i] != NULL)
 		i++;
-	new_arguments = ft_calloc((sizeof (char *)), (i + 2));
+	new_arguments = ft_calloc((sizeof(char *)), (i + 2));
 	if (!new_arguments)
 		return (1);
 	if (!command->arguments)
@@ -107,3 +107,38 @@ void	free_command(t_command *command)
 	}
 	free(command->redirections);
 }
+
+int	open_quote(char *str)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	if (!str)
+		return (1);
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			quote = str[i++];
+			if (str[i + 1] == 0 && str[i] != quote)
+				return (1);
+			while (str[i] && str[i] != quote)
+			{
+				if (str[i + 1] == 0 && str[i] != quote)
+					return (1);
+				i++;
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+
+// int	syntax(char *str)
+// {
+// 	if (open_quote(str))
+// 		return (1);
+// }
+

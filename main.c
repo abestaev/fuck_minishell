@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/25 16:20:57 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:50:33 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,22 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		input = readline("minishell >> ");
-		if (input == NULL)
+		if (!input)
 			return (0);
-		if (!(*input))
+		if (!(*input) || open_quote(input))
 		{
+			if (open_quote(input))
+				printf("syntax error\n");
 			free(input);
 			continue ;
 		}
 		add_history(input);
 		tokenizer(input, &minishell);
 		parsing(&minishell);
-		//print_command(minishell.command);
+		print_token(minishell.token);
 		while (minishell.command)
 		{
-			free_command(minishell.command);
+			// free_command(minishell.token);
 			tmp = minishell.command->next;
 			free(minishell.command);
 			minishell.command = tmp;
@@ -73,6 +75,7 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
+
 
 
 

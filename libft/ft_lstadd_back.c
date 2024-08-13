@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:35:05 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/23 21:11:27 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:56:59 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstadd_back_2(t_list **lst, t_list *new)
 {
-t_list	*last;
+	t_list	*last;
 
 	if (lst)
 	{
@@ -27,4 +27,3 @@ t_list	*last;
 			*lst = new;
 	}
 }
-

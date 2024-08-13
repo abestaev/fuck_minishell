@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/25 14:51:10 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:49:00 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-
 typedef enum e_bool
 {
 	FALSE,
 	TRUE
-} t_bool;
+}						t_bool;
 
 typedef enum e_type
 {
@@ -66,16 +65,17 @@ typedef struct s_command
 
 typedef struct s_env
 {
-	char	*name;
-	char	*value;
-}	t_env;
+	char				*name;
+	char				*value;
+	struct s_env		*next;
+}						t_env;
 
 typedef struct s_minishell
 {
 	t_list				*env;
-	char	**env_tab;
-	char	**path;
-	bool	env_changed;
+	char				**env_tab;
+	char				**path;
+	bool				env_changed;
 	t_token				*token;
 	t_command			*command;
 }						t_minishell;
@@ -104,11 +104,12 @@ void					print_command(t_command *command);
 t_token					*quote_word(char *str, int *i, t_token *token, char c);
 
 // env
-void	copy_env(t_minishell *minishell, char **env);
-t_env  *new_var(char *name, char *value);
-void    print_env(t_minishell *minishell);
-char    **env_to_tab(t_list *env);
-bool	var_exist(t_list *env, char *name);
-char    **get_path(t_list *env);
+void					copy_env(t_minishell *minishell, char **env);
+t_env					*new_var(char *name, char *value);
+void					print_env(t_minishell *minishell);
+char					**env_to_tab(t_list *env);
+bool					var_exist(t_list *env, char *name);
+char					**get_path(t_list *env);
+int						open_quote(char *str);
 
 #endif

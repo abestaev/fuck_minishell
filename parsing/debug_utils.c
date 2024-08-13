@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:55:42 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/21 18:12:08 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:31:23 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	print_tab(char **tab)
 	if (!tab)
 		return ;
 	while (tab[i++])
-		printf("	%d: %s\n", i,  tab[i]);
-
+		printf("	%d: %s\n", i, tab[i]);
 }
 
 void	print_redir(t_redir *redirection)
