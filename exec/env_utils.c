@@ -6,11 +6,13 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:14 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/12 18:42:08 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:41:54 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// TODO : fonction pour add une env a la liste chainee(add_last_env)
 
 void	copy_env(t_minishell *minishell, char **env)
 {
@@ -95,19 +97,18 @@ bool	var_exist(t_list *env, char *name)
 	return (FALSE);
 }
 
+t_env	*match_env(char *str, t_minishell *data)
+{
+	if (!str || !data || !data->env)
+		return (NULL);
+	t_list *current;
 
-// t_env *match_env(char *str,t_minishell *data)
-// {
-// 	if (!str || !data || !data->env)
-// 		return NULL;
-// 	t_env *current;
-
-// 	current = data->env;
-// 	while(current)
-// 	{
-// 		if (!(ft_strcmp(str,current->name)))
-// 			return current;
-// 		current = current->next;
-// 	}
-// 	return NULL;
-// }
+	current = data->env;
+	while (current)
+	{
+		if (!(ft_strcmp(str, ((t_env *)current)->name)))
+			return ((t_env *)current);
+		current = current->next;
+	}
+	return (NULL);
+}

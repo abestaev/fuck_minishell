@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/12 18:49:00 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:06:18 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_minishell
 	t_command			*command;
 }						t_minishell;
 
+// parsing
 int						tokenizer(char *str, t_minishell *minishell);
 t_token					*get_pipe(char *str, int *i, t_token *token);
 t_token					*get_redir_single(char *str, int *i, t_token *token);
@@ -102,6 +103,7 @@ void					print_token(t_token *token);
 void					print_redir(t_redir *redirection);
 void					print_command(t_command *command);
 t_token					*quote_word(char *str, int *i, t_token *token, char c);
+int						open_quote(char *str);
 
 // env
 void					copy_env(t_minishell *minishell, char **env);
@@ -109,7 +111,8 @@ t_env					*new_var(char *name, char *value);
 void					print_env(t_minishell *minishell);
 char					**env_to_tab(t_list *env);
 bool					var_exist(t_list *env, char *name);
+t_env					*match_env(char *str, t_minishell *data);
+
 char					**get_path(t_list *env);
-int						open_quote(char *str);
 
 #endif

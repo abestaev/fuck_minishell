@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:00:59 by pc                #+#    #+#             */
-/*   Updated: 2024/08/12 18:32:37 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:35:23 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	process_parsing(t_command *command, t_token **token)
 {
-	if ((*token)->type == REDIRECTION)
+	if ((*token)->type == REDIRECTION && (*token)->next)
 	{
 		if (add_redirection(command, *token))
 			return (1);
@@ -57,9 +57,6 @@ int	parsing(t_minishell *minishell)
 }
 
 /*
-t'as juste a ecrire les fonctions add_redirections et add_arguments
-et cest tout bon
-apres ca le parsing est fini
 
 ls -l -R -a | wc -l
 

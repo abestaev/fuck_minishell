@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/12 18:50:33 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:16:04 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,13 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		add_history(input);
-		tokenizer(input, &minishell);
-		parsing(&minishell);
+		// gerer le quotes puis expand puis tokeniser
+		if (tokenizer(input, &minishell))
+			return (printf("error tokenizer") ,1);
+		if (!init_automate(minishell.token))
+			return(free_token(minishell.token),1);
+		if (parsing(&minishell))
+			return (printf("error parsing") ,1);
 		print_token(minishell.token);
 		while (minishell.command)
 		{
