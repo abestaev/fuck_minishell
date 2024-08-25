@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/31 20:04:49 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:16:39 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	while (1)
 	{
-		input = readline("minishell >> ");
+		input = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (input == NULL)
 			return (0);
 		if (!(*input))

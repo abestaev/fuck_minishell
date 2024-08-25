@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 01:29:33 by wojak             #+#    #+#             */
-/*   Updated: 2024/07/31 19:30:53 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:36:09 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ int exec_cmd(t_minishell *minishell)
         free(abs_path);
         i++;
     }
-    return (0);
+    return (1);
 }
