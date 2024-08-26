@@ -1,36 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 15:32:25 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:07:41 by ssitchsa         ###   ########.fr       */
+/*   Created: 2024/08/26 20:30:24 by ssitchsa          #+#    #+#             */
+/*   Updated: 2024/08/26 20:31:01 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**get_path(t_env *env)
+void	ft_negatif(char *input)
 {
-	t_env	*tmp;
-	char	**path;
 	int		i;
+	char	j;
 
 	i = 0;
-	tmp = env;
-	while (tmp)
+	while (input[i] != '\0')
 	{
-		if (!ft_strncmp(tmp->key, "PATH", 4))
-			break ;
-		tmp = tmp->next;
+		if (input[i] == '"' || input[i] == '\'')
+        {
+			j = input[i++];
+			while (input[i] != j)
+			{
+				input[i] = -input[i];
+				i++;
+			}
+        }
+        i++;
 	}
-	if (!tmp)
-		return (NULL);
-	path = ft_split(tmp->value, ':');
-	return (path);
 }
 
-// path = match_env("path",minishell)
-// r_path = path.value
+void	ft_positif(char *input)
+{
+	int i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] < 0)
+			input[i] = -input[i];
+		i++;
+	}
+}

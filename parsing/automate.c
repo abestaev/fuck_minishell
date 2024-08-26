@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:10:49 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/25 17:25:16 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:16:19 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	init_automate(t_token *token)
 	if (token->type == REDIRECTION)
 		return (redir_state(token->next));
 	else
-		return (printf("syntax error near unexpected token `|'\n"), 0);
+		return (ft_dprintf(2, "syntax error near unexpected token `|'\n"), 0);
 }
 
 bool	word_state(t_token *token)
@@ -42,23 +42,24 @@ bool	word_state(t_token *token)
 bool	pipe_state(t_token *token)
 {
 	if (!token)
-		return (printf("syntax error\n"), 0);
+		return (ft_dprintf(2, "syntax error\n"), 0);
 	if (token->type == WORD)
 		return (word_state(token->next));
 	if (token->type == REDIRECTION)
 		return (redir_state(token->next));
 	else
-		return (printf("syntax error near unexpected token `||'\n"), 0);
+		return (ft_dprintf(2, "syntax error near unexpected token `|'\n"), 0);
 }
 
 bool	redir_state(t_token *token)
 {
 	if (!token)
-		return (printf("syntax error near unexpected token `newline'\n"), 0);
+		return (ft_dprintf(2, "syntax error near unexpected token `newline'\n"),
+			0);
 	if (token->type == WORD)
 		return (word_state(token->next));
 	if (token->type == REDIRECTION)
-		return (printf("syntax error\n"), 0);
+		return (ft_dprintf(2, "syntax error\n"), 0);
 	else
-		return (printf("syntax error near unexpected token `|'\n"), 0);
+		return (ft_dprintf(2, "syntax error near unexpected token `|'\n"), 0);
 }

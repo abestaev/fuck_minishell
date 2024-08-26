@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:55:42 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/12 15:31:23 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:26:51 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	print_redir(t_redir *redirection)
 		redirection = redirection->next;
 		i++;
 	}
+	printf("\n\n\n\n");
 }
 
 void	print_command(t_command *command)

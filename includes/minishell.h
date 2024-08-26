@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/23 18:06:18 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:23:25 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "../libft/printf/ft_printf.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
@@ -65,27 +66,27 @@ typedef struct s_command
 
 typedef struct s_env
 {
-	char				*name;
+	char				*key;
 	char				*value;
 	struct s_env		*next;
 }						t_env;
 
 typedef struct s_minishell
 {
-	t_list				*env;
+	t_env				*env;
 	char				**env_tab;
 	char				**path;
-	bool				env_changed;
+	// bool				env_changed;
 	t_token				*token;
 	t_command			*command;
 }						t_minishell;
 
 // parsing
 int						tokenizer(char *str, t_minishell *minishell);
-t_token					*get_pipe(char *str, int *i, t_token *token);
-t_token					*get_redir_single(char *str, int *i, t_token *token);
-t_token					*get_redir_double(char *str, int *i, t_token *token);
-t_token					*get_word(char *str, int *i, t_token *token);
+void					get_pipe(char *str, int *i, t_token *token);
+void					get_redir_single(char *str, int *i, t_token *token);
+void					get_redir_double(char *str, int *i, t_token *token);
+void					get_word(char *str, int *i, t_token *token);
 bool					init_automate(t_token *token);
 bool					word_state(t_token *token);
 bool					pipe_state(t_token *token);
@@ -102,17 +103,25 @@ void					print_tab(char **tab);
 void					print_token(t_token *token);
 void					print_redir(t_redir *redirection);
 void					print_command(t_command *command);
-t_token					*quote_word(char *str, int *i, t_token *token, char c);
+void					quote_word(char *str, int *i, t_token *token, char c);
 int						open_quote(char *str);
 
 // env
-void					copy_env(t_minishell *minishell, char **env);
-t_env					*new_var(char *name, char *value);
-void					print_env(t_minishell *minishell);
-char					**env_to_tab(t_list *env);
-bool					var_exist(t_list *env, char *name);
-t_env					*match_env(char *str, t_minishell *data);
 
-char					**get_path(t_list *env);
+// void					copy_env(t_minishell *minishell, char **env);
+// t_env					*new_var(char *name, char *value);
+// void					print_env(t_minishell *minishell);
+// char					**env_to_tab(t_list *env);
+// bool					var_exist(t_list *env, char *name);
+// char					**get_path(t_list *env);
+int						copy_env(char **env, t_minishell *minishell);
+char					**env_to_tab(t_env *env);
+int						ft_envsize(t_env *env);
+t_env					*ft_envnew(char *key, char *value);
+void					ft_envadd_back(t_env **env, t_env *new);
+void					free_tab(char **tab);
+char					*match_env(char *str, t_minishell *data);
+void					free_env(t_env *env);
+void					print_env(t_env *env);
 
 #endif

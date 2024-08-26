@@ -6,21 +6,19 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:31:50 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/12 15:34:20 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:14:24 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_env(t_minishell *minishell)
+void	print_env(t_env *env)
 {
-	t_list	*tmp;
-
-	tmp = (t_list *)minishell->env;
-	while (tmp)
+	printf("--------------ENV---------------\n");
+	while (env)
 	{
-		printf("%s=%s\n", ((t_env *)tmp->content)->name,
-			((t_env *)tmp->content)->value);
-		tmp = tmp->next;
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
 	}
+	printf("--------------------------------\n");
 }

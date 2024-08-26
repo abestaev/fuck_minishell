@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/13 17:22:35 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:40:15 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	add_redirection(t_command *command, t_token *token)
 	if (!redirection)
 		return (1);
 	redirection->type = find_redir_type(token->name);
-	file_name = ft_strdup(token->next->name);
+	file_name = ft_expand(token->next->name);
 	if (!file_name)
 		return (free(redirection), 1);
 	redirection->file = file_name;
@@ -62,13 +62,13 @@ int	add_arguments(t_command *command, t_token *token)
 	if (!new_arguments)
 		return (1);
 	if (!command->arguments)
-		new_arguments[0] = ft_strdup(token->name);
+		new_arguments[0] = ft_expand(token->name);
 	else
 	{
 		i = -1;
 		while (command->arguments[++i])
 			new_arguments[i] = command->arguments[i];
-		new_arguments[i] = ft_strdup(token->name);
+		new_arguments[i] = ft_expand(token->name);
 	}
 	if (!new_arguments[i])
 		return (1);
@@ -97,6 +97,7 @@ void	command_add_back(t_command **command_list, t_command *new_command)
 void	free_command(t_command *command)
 {
 	int	i;
+	t_redir *tmp;
 
 	i = 0;
 	if (command->arguments)
@@ -105,7 +106,13 @@ void	free_command(t_command *command)
 			free(command->arguments[i++]);
 		free(command->arguments);
 	}
-	free(command->redirections);
+	while (command->redirections)
+	{
+		tmp = command->redirections->next;
+		free(command->redirections->file);
+		free(command->redirections);
+		command->redirections = tmp;
+	}
 }
 
 int	open_quote(char *str)

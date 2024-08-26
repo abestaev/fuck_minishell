@@ -6,13 +6,13 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:00:59 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/07/20 12:34:46 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:53:44 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*quote_word(char *str, int *i, t_token *token, char c)
+void	quote_word(char *str, int *i, t_token *token, char c)
 {
 	int	j;
 	int	k;
@@ -25,13 +25,12 @@ t_token	*quote_word(char *str, int *i, t_token *token, char c)
 	(*i)++;
 	token->name = malloc((*i - j + 1) * sizeof(char));
 	if (!token->name)
-		return (NULL);
+		return ;
 	while (j < *i)
 		token->name[k++] = str[j++];
 	token->name[k] = 0;
 	token->type = WORD;
 	token->next = 0;
-	return (token);
 }
 
 void	ft_lstadd_back(t_token **token, t_token *new)
@@ -57,13 +56,13 @@ int	get_next_token(char *str, int *i, t_minishell *minishell)
 	if (!token)
 		return (1);
 	if (!ft_strncmp(str + *i, "<<", 2) || !ft_strncmp(str + *i, ">>", 2))
-		token = get_redir_double(str, i, token);
+		get_redir_double(str, i, token);
 	else if (!ft_strncmp(str + *i, "<", 1) || !ft_strncmp(str + *i, ">", 1))
-		token = get_redir_single(str, i, token);
+		get_redir_single(str, i, token);
 	else if (!ft_strncmp(str + *i, "|", 1))
-		token = get_pipe(str, i, token);
+		get_pipe(str, i, token);
 	else
-		token = get_word(str, i, token);
+		get_word(str, i, token);
 	if (!token->name)
 		return (free(token), 1);
 	ft_lstadd_back(&(minishell->token), token);

@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 18:08:15 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/23 13:38:48 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:34:51 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ size_t				ft_strlcat(char *dst, const char *src, size_t size);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strchr(const char *s, int c);
+int					ft_strchri(const char *s, int c);
 char				*ft_strrchr(const char *str, int c);
 int					ft_strncmp(char *s1, const char *s2, size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
