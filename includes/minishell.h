@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:23:25 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:02:50 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ bool					redir_state(t_token *token);
 void					free_token(t_token *token);
 int						parsing(t_minishell *minishell);
 t_pety					find_redir_type(char *str);
-int						add_redirection(t_command *command, t_token *token);
-int						add_arguments(t_command *command, t_token *token);
+int						add_redirection(t_command *command, t_token *token,
+							t_minishell *minishell);
+int						add_arguments(t_command *command, t_token *token,
+							t_minishell *minishell);
 void					command_add_back(t_command **command_list,
 							t_command *new_command);
 void					free_command(t_command *command);
@@ -120,8 +122,16 @@ int						ft_envsize(t_env *env);
 t_env					*ft_envnew(char *key, char *value);
 void					ft_envadd_back(t_env **env, t_env *new);
 void					free_tab(char **tab);
-char					*match_env(char *str, t_minishell *data);
+char					*match_env(char *str, t_minishell *minishell);
 void					free_env(t_env *env);
 void					print_env(t_env *env);
+
+// expand
+
+char					*ft_expand(char *str, t_minishell *minishell);
+void					ft_env_expand(char *str, char *res, int *i,
+							t_minishell *minishell);
+int						ft_env_len(char *str, int *i, t_minishell *minishell);
+int						ft_isalnumspe(char c);
 
 #endif

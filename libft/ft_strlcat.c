@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 04:38:22 by ssitchsa          #+#    #+#             */
-/*   Updated: 2023/11/20 20:03:16 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:41:21 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,19 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	if (j < size)
 		dst[i] = 0;
 	return (j + ft_strlen(src));
+}
+
+void	ft_strncat(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+	size_t j;
+
+	i = ft_strlen(dst);
+	j = 0;
+	while (src[j] && j < size)
+	{
+		dst[i] = src[j];
+		i++;
+		j++;
+	}
 }

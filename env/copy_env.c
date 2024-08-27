@@ -6,14 +6,11 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 19:24:09 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:09:33 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/27 23:51:17 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// LSCOLORS=Gxfxcxdxbxegedabagacad
-// key = LSCOLORS |||| value = Gxfxcxdxbxegedabagacad
 
 int	copy_env(char **env, t_minishell *minishell)
 {
@@ -59,13 +56,13 @@ char	**env_to_tab(t_env *env)
 	return (tab);
 }
 
-char	*match_env(char *str, t_minishell *data)
+char	*match_env(char *str, t_minishell *minishell)
 {
 	t_env	*current;
 
-	if (!str || !data || !data->env)
+	if (!str || !minishell || !minishell->env)
 		return (NULL);
-	current = data->env;
+	current = minishell->env;
 	while (current)
 	{
 		if (!(ft_strcmp(str, current->key)))

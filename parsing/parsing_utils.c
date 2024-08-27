@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:40:15 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:04:31 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_pety	find_redir_type(char *str)
 	return (SINGLE_IN);
 }
 
-int	add_redirection(t_command *command, t_token *token)
+int	add_redirection(t_command *command, t_token *token, t_minishell *minishell)
 {
 	t_redir	*redirection;
 	t_redir	*current;
@@ -33,7 +33,7 @@ int	add_redirection(t_command *command, t_token *token)
 	if (!redirection)
 		return (1);
 	redirection->type = find_redir_type(token->name);
-	file_name = ft_expand(token->next->name);
+	file_name = ft_expand(token->next->name, minishell);
 	if (!file_name)
 		return (free(redirection), 1);
 	redirection->file = file_name;
@@ -50,7 +50,7 @@ int	add_redirection(t_command *command, t_token *token)
 	return (0);
 }
 
-int	add_arguments(t_command *command, t_token *token)
+int	add_arguments(t_command *command, t_token *token, t_minishell *minishell)
 {
 	char	**new_arguments;
 	int		i;
@@ -62,17 +62,17 @@ int	add_arguments(t_command *command, t_token *token)
 	if (!new_arguments)
 		return (1);
 	if (!command->arguments)
-		new_arguments[0] = ft_expand(token->name);
+		new_arguments[0] = ft_expand(token->name, minishell);
 	else
 	{
 		i = -1;
 		while (command->arguments[++i])
 			new_arguments[i] = command->arguments[i];
-		new_arguments[i] = ft_expand(token->name);
+		new_arguments[i] = ft_expand(token->name, minishell);
 	}
 	if (!new_arguments[i])
 		return (1);
-	// new_arguments[i + 1] = NULL;
+	free(command->arguments);
 	command->arguments = new_arguments;
 	return (0);
 }
@@ -141,11 +141,3 @@ int	open_quote(char *str)
 	}
 	return (0);
 }
-
-
-// int	syntax(char *str)
-// {
-// 	if (open_quote(str))
-// 		return (1);
-// }
-
