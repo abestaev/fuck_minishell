@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:31:50 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:14:24 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:19:43 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	print_env(t_env *env)
 {
-	printf("--------------ENV---------------\n");
-	while (env)
+	t_env *tmp;
+
+	tmp = env;
+	while (tmp)
 	{
-		printf("%s=%s\n", env->key, env->value);
-		env = env->next;
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
-	printf("--------------------------------\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/28 18:55:05 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:00:13 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/types.h>
+# include <unistd.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef enum e_bool
 {
@@ -77,7 +82,7 @@ typedef struct s_minishell
 	t_env				*env;
 	char				**env_tab;
 	char				**path;
-	// bool				env_changed;
+	bool				env_changed;
 	t_token				*token;
 	t_command			*command;
 }						t_minishell;
@@ -110,13 +115,8 @@ void					quote_word(char *str, int *i, t_token *token, char c);
 int						open_quote(char *str);
 
 // env
-
-// void					copy_env(t_minishell *minishell, char **env);
-// t_env					*new_var(char *name, char *value);
-// void					print_env(t_minishell *minishell);
-// char					**env_to_tab(t_list *env);
 // bool					var_exist(t_list *env, char *name);
-// char					**get_path(t_list *env);
+char					**get_path(t_env *env);
 int						copy_env(char **env, t_minishell *minishell);
 char					**env_to_tab(t_env *env);
 int						ft_envsize(t_env *env);
@@ -125,15 +125,21 @@ void					ft_envadd_back(t_env **env, t_env *new);
 void					free_tab(char **tab);
 char					*match_env(char *str, t_minishell *minishell);
 void					free_env(t_env *env);
+
+// builtin
 void					print_env(t_env *env);
 
 // expand
-
 char					*ft_expand(char *str, t_minishell *minishell);
 void					ft_env_expand(char *str, char *res, int *i,
 							t_minishell *minishell);
 int						ft_env_len(char *str, int *i, t_minishell *minishell);
 int						ft_isalnumspe(char c);
+
+
+//exec
+int run(t_minishell *minishell);
+int exec_cmd(t_minishell *minishell);
 
 // signal
 

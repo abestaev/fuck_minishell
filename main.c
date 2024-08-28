@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/28 20:08:16 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:59:46 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,19 @@ int	init_command(t_minishell *minishell, char *input)
 	}
 	if (parsing(minishell))
 		return (printf("error parsing\n"), 1);
-	print_token(minishell->token);
+	//print_token(minishell->token);
 	free_token(minishell->token);
 	minishell->token = NULL;
 	return (0);
+}
+
+void init_env(t_minishell *minishell, char **env)
+{
+	minishell->env = NULL;
+	minishell->env_changed = FALSE;
+	copy_env(env, minishell);
+	minishell->env_tab = env_to_tab(minishell->env);
+	minishell->path = get_path(minishell->env);
 }
 
 int	main(int ac, char **av, char **env)
@@ -58,10 +67,9 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	// to do: add proper initialization
-	minishell = (t_minishell){0, 0, 0, 0, 0};
+	minishell = (t_minishell){0, 0, 0, 0, 0, 0};
 	if (!(isatty(1)))
 		return (0);
-	copy_env(env, &minishell);
 	// print_env(minishell.env);
 	while (1)
 	{
@@ -75,7 +83,12 @@ int	main(int ac, char **av, char **env)
 		if (init_command(&minishell, input))
 			continue ;
 		// gerer le quotes puis expand puis tokeniser
-		print_command(minishell.command);
+		//print_command(minishell.command);
+		
+		init_env(&minishell, env);
+		run(&minishell);
+
+		//free
 		while (minishell.command)
 		{
 			free_command(minishell.command);
@@ -84,13 +97,6 @@ int	main(int ac, char **av, char **env)
 			minishell.command = tmp;
 		}
 		minishell.token = 0;
-		// toute l'exec
-		// gestion env, TODO: deplacer dans init
-		// minishell.env = NULL;
-		// minishell.env_changed = FALSE;
-		// copy_env(&minishell, env);
-		// minishell.env_tab = env_to_tab(minishell.env);
-		// minishell.path = get_path(minishell.env);
 		free(input);
 	}
 	free_env(minishell.env);

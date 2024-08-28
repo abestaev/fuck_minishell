@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:14:03 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/28 14:56:41 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:59:34 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	get_expand_len(char *str, t_minishell *minishell)
 	{
 		if (str[i++] == '$')
 		{
-			// if (str[i] == '?')
-			// 	// len += ft_itoa(g_minishell);
-			// 	len = len; // ne sert a rien
+			/*if (str[i] == '?')
+				// len += ft_itoa(g_minishell);
+				len = len; // ne sert a rien */
 			if (!ft_isalnumspe(str[i]))
 				len++;
 			else
@@ -48,9 +48,9 @@ int	ft_expand_str(char *str, char *res, t_minishell *minishell)
 	{
 		if (str[i++] == '$')
 		{
-			// if (str[i] == '?')
-			// 	// ft_strncat(res, ft_itoa(g_minishell), ft_strlen(ft_itoa(g_minishell)));
-			// 	i = i; // ne sert a rien
+			/*if (str[i] == '?')
+				// ft_strncat(res, ft_itoa(g_minishell), ft_strlen(ft_itoa(g_minishell)));
+				i = i; // ne sert a rien */
 			if (!ft_isalnumspe(str[i]))
 				ft_strncat(res, str + i - 1, 1);
 			else
