@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/28 00:02:50 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:55:05 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libft/printf/ft_printf.h"
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -133,5 +134,9 @@ void					ft_env_expand(char *str, char *res, int *i,
 							t_minishell *minishell);
 int						ft_env_len(char *str, int *i, t_minishell *minishell);
 int						ft_isalnumspe(char c);
+
+// signal
+
+void					ft_signal(void);
 
 #endif

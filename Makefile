@@ -10,6 +10,7 @@ MINISHELL_SRCS		= ./parsing/tokenizer.c ./parsing/tokenizer_utils.c ./parsing/au
 					./expand/expand.c ./expand/expand_utils.c \
 					./builtin/cd.c ./builtin/echo.c ./builtin/print_env.c \
 					./env/copy_env.c ./env/env_utils.c \
+					./signal/signal.c \
 					main.c
 MINISHELL_OBJS 		= $(MINISHELL_SRCS:.c=.o)
 

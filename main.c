@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:25:48 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:08:16 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ int	init_command(t_minishell *minishell, char *input)
 	if (tokenizer(input, minishell))
 		return (printf("error tokenizer\n"), 1);
 	if (!init_automate(minishell->token))
-		return (free_token(minishell->token), 1);
+	{
+		free_token(minishell->token);
+		minishell->token = NULL;
+		return (1);
+	}
 	if (parsing(minishell))
 		return (printf("error parsing\n"), 1);
 	print_token(minishell->token);
@@ -61,6 +65,7 @@ int	main(int ac, char **av, char **env)
 	// print_env(minishell.env);
 	while (1)
 	{
+		ft_signal();
 		input = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (!input)
 			break ;
