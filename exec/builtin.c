@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 15:31:50 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/29 18:21:18 by albestae         ###   ########.fr       */
+/*   Created: 2024/08/28 21:03:50 by albestae          #+#    #+#             */
+/*   Updated: 2024/08/29 16:03:56 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_env(t_minishell *minishell)
+int is_builtin(t_command *command)
 {
-	t_env *tmp;
+    if (!ft_strcmp(command->command, "env"))
+        return (1);
+    return (0);
+}
 
-	tmp = minishell->env;
-	while (tmp)
-	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-	minishell->exit_status = 0;
-	return (0);
+int exec_builtin(t_command *command, t_minishell *minishell)
+{
+    if (!ft_strcmp(command->command, "env"))
+        return (print_env(minishell));
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/28 20:59:46 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:15:02 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	// to do: add proper initialization
-	minishell = (t_minishell){0, 0, 0, 0, 0, 0};
+	minishell = (t_minishell){0, 0, 0, 0, 0, 0, 0, 0};
 	if (!(isatty(1)))
 		return (0);
 	// print_env(minishell.env);
@@ -86,7 +86,7 @@ int	main(int ac, char **av, char **env)
 		//print_command(minishell.command);
 		
 		init_env(&minishell, env);
-		run(&minishell);
+		run(minishell.command, &minishell);
 
 		//free
 		while (minishell.command)

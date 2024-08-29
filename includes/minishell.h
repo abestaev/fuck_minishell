@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/28 21:00:13 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/29 18:11:44 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
+extern int	g_sigint;
 
 typedef enum e_bool
 {
@@ -67,6 +69,9 @@ typedef struct s_command
 	char				*command;
 	char				**arguments;
 	t_redir				*redirections;
+	int					fd[2];
+	pid_t					pid;
+	int					id;
 	struct s_command	*next;
 }						t_command;
 
@@ -85,6 +90,8 @@ typedef struct s_minishell
 	bool				env_changed;
 	t_token				*token;
 	t_command			*command;
+	int					exit_status;
+	int				    n_cmd;
 }						t_minishell;
 
 // parsing
@@ -127,7 +134,7 @@ char					*match_env(char *str, t_minishell *minishell);
 void					free_env(t_env *env);
 
 // builtin
-void					print_env(t_env *env);
+int					print_env(t_minishell *minishell);
 
 // expand
 char					*ft_expand(char *str, t_minishell *minishell);
@@ -136,10 +143,11 @@ void					ft_env_expand(char *str, char *res, int *i,
 int						ft_env_len(char *str, int *i, t_minishell *minishell);
 int						ft_isalnumspe(char c);
 
-
 //exec
-int run(t_minishell *minishell);
+int	run(t_command *command, t_minishell *minishell);
 int exec_cmd(t_minishell *minishell);
+int is_builtin(t_command *command);
+int exec_builtin(t_command *command, t_minishell *minishell);
 
 // signal
 
