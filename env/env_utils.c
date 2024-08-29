@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 19:53:35 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:23:06 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:26:49 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void free_env(t_env *env)
+void	free_env(t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	while (env)
 	{

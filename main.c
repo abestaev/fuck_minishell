@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/29 18:15:02 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/29 19:58:27 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	init_command(t_minishell *minishell, char *input)
 	}
 	if (parsing(minishell))
 		return (printf("error parsing\n"), 1);
-	//print_token(minishell->token);
 	free_token(minishell->token);
 	minishell->token = NULL;
 	return (0);
@@ -82,9 +81,6 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (init_command(&minishell, input))
 			continue ;
-		// gerer le quotes puis expand puis tokeniser
-		//print_command(minishell.command);
-		
 		init_env(&minishell, env);
 		run(minishell.command, &minishell);
 

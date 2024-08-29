@@ -6,12 +6,11 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:56:18 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/23 17:18:20 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/29 19:16:10 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 //todo	ori fraude pour les fd 1 
 int ft_flag(char **tab)
@@ -33,7 +32,7 @@ int ft_flag(char **tab)
 	return (1);
 }
 
-int	ft_echo(t_minishell *mini, t_command *current)
+int	ft_echo(t_minishell *minishell, t_command *current)
 {
 	int	i;
 	char **tab;
@@ -42,7 +41,7 @@ int	ft_echo(t_minishell *mini, t_command *current)
 	i = 1;
 	flag = 0;
 	tab = current->arguments;
-	if (!mini || !current)
+	if (!minishell || !current)
 		return (1);
 	flag = ft_flag(tab);
 	if (flag)
