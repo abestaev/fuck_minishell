@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 19:24:09 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/27 23:51:17 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:49:18 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**env_to_tab(t_env *env)
 	while (env)
 	{
 		tab[i] = ft_strjoin(env->key, "=");
-		tab[i] = ft_strjoin(tab[i], env->value);
+		tab[i] = ft_strjoin_free(tab[i], env->value);
 		if (!tab[i])
 			return (free_tab(tab), NULL);
 		env = env->next;

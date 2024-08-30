@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/30 16:26:59 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:46:27 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	run(t_command *command, t_minishell *minishell)
 			else if (exec_cmd(command, minishell))
 			{
 				ft_printf("%s: command not found\n", command->command);
+				free_all_commands(minishell);
+				free_env(minishell->env);
 				exit(1);
 			}
 		}
@@ -50,17 +52,28 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 {
 	size_t i;
 	char *abs_path = "";
+	char **path;
+	char **env;
 
+	path = get_path(minishell->env);
+	env = env_to_tab(minishell->env);
 	if (ft_strchr(cmd->command, '/'))
-		if (execve(cmd->command, cmd->arguments, minishell->env_tab))
+		if (execve(cmd->command, cmd->arguments, env))
+		{
+			free_tab(path);
+			free_tab(env);
+			free(abs_path);
 			return (1);
+		}
 	i = 0;
-	while (minishell->path[i])
+	while (path[i])
 	{
-		abs_path = ft_strjoin(minishell->path[i], cmd->command);
-		execve(abs_path, cmd->arguments, minishell->env_tab);
+		abs_path = ft_strjoin(path[i], cmd->command);
+		execve(abs_path, cmd->arguments, env);
 		free(abs_path);
 		i++;
 	}
+	free_tab(path);
+	free_tab(env);
 	return (1);
 }

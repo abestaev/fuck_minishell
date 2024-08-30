@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:56:18 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/29 19:16:10 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:55:20 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int ft_flag(char **tab)
 	return (1);
 }
 
-int	ft_echo(t_minishell *minishell, t_command *current)
+int	ft_echo(t_command *current)
 {
 	int	i;
 	char **tab;
@@ -41,7 +41,7 @@ int	ft_echo(t_minishell *minishell, t_command *current)
 	i = 1;
 	flag = 0;
 	tab = current->arguments;
-	if (!minishell || !current)
+	if (!current)
 		return (1);
 	flag = ft_flag(tab);
 	if (flag)
@@ -53,7 +53,10 @@ int	ft_echo(t_minishell *minishell, t_command *current)
 			ft_putstr_fd(" ", 1);
 		i++;
 	}
-	if (flag == 0)
+	if (flag == 1)
+	{
+		printf("oui");
 		ft_putstr_fd("\n", 1);
+	}
 	return (0);
 }

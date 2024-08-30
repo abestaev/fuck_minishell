@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/30 16:29:58 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:12:31 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ bool					word_state(t_token *token);
 bool					pipe_state(t_token *token);
 bool					redir_state(t_token *token);
 void					free_token(t_token *token);
+void					free_all_commands(t_minishell *minishell);
 int						parsing(t_minishell *minishell);
 t_pety					find_redir_type(char *str);
 int						add_redirection(t_command *command, t_token *token,
@@ -131,7 +132,7 @@ char					*match_env(char *str, t_minishell *minishell);
 void					free_env(t_env *env);
 
 // builtin
-int						ft_echo(t_minishell *minishell, t_command *current);
+int						ft_echo(t_command *current);
 int						print_env(t_minishell *minishell);
 
 // expand

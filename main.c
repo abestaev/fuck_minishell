@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/30 16:27:47 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:43:11 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ void	free_token(t_token *token)
 		free(token->name);
 		free(token);
 		token = tmp;
+	}
+}
+
+void	free_all_commands(t_minishell *minishell)
+{
+	t_command	*tmp;
+
+	while (minishell->command)
+	{
+		free_command(minishell->command);
+		tmp = minishell->command->next;
+		free(minishell->command);
+		minishell->command = tmp;
 	}
 }
 
@@ -48,26 +61,26 @@ int	init_command(t_minishell *minishell, char *input)
 	return (0);
 }
 
-void init_env(t_minishell *minishell, char **env)
-{
-	minishell->env = NULL;
-	minishell->env_changed = FALSE;
-	copy_env(env, minishell);
-	minishell->env_tab = env_to_tab(minishell->env);
-	minishell->path = get_path(minishell->env);
-}
+// void	init_env(t_minishell *minishell, char **env)
+// {
+// 	if (copy_env(env, minishell))
+// 		return ;
+// 	minishell->env_tab = env_to_tab(minishell->env);
+// 	minishell->path = get_path(minishell->env);
+// }
 
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	t_minishell	minishell;
-	t_command	*tmp;
 
 	(void)ac;
 	(void)av;
 	// to do: add proper initialization
 	minishell = (t_minishell){0, 0, 0, 0, 0, 0, 0, 0};
 	if (!(isatty(1)))
+		return (0);
+	if (copy_env(env, &minishell))
 		return (0);
 	// print_env(minishell.env);
 	while (1)
@@ -81,18 +94,10 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (init_command(&minishell, input))
 			continue ;
-		init_env(&minishell, env);
 		run(minishell.command, &minishell);
-
-		//free
-		while (minishell.command)
-		{
-			free_command(minishell.command);
-			tmp = minishell.command->next;
-			free(minishell.command);
-			minishell.command = tmp;
-		}
-		minishell.token = 0;
+		// free
+		free_all_commands(&minishell);
+		// minishell.token = 0;
 		free(input);
 	}
 	free_env(minishell.env);

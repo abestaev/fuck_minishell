@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 21:03:50 by albestae          #+#    #+#             */
-/*   Updated: 2024/08/30 16:29:15 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:12:50 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int exec_builtin(t_command *command, t_minishell *minishell)
     if (!ft_strcmp(command->command, "env"))
         return (print_env(minishell));
     if (!ft_strcmp(command->command, "echo"))
-        return (ft_echo(minishell, command));
+        return (ft_echo(command));
     return (0);
 }
