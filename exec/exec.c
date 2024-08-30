@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/08/29 19:56:36 by ssitchsa         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/30 16:16:14 by albestae         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/08/30 16:26:59 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/08/29 20:00:55 by ssitchsa         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/30 13:30:33 by albestae         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/08/30 16:29:58 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,20 +141,12 @@ void					ft_env_expand(char *str, char *res, int *i,
 int						ft_env_len(char *str, int *i, t_minishell *minishell);
 int						ft_isalnumspe(char c);
 
-<<<<<<< Updated upstream
 // exec
 int						run(t_command *command, t_minishell *minishell);
-int						exec_cmd(t_minishell *minishell);
+int						exec_cmd(t_command *cmd, t_minishell *minishell);
 int						is_builtin(t_command *command);
 int						exec_builtin(t_command *command,
 							t_minishell *minishell);
-=======
-//exec
-int	run(t_command *command, t_minishell *minishell);
-int	exec_cmd(t_command *cmd, t_minishell *minishell);
-int is_builtin(t_command *command);
-int exec_builtin(t_command *command, t_minishell *minishell);
->>>>>>> Stashed changes
 
 // signal
 

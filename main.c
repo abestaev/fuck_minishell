@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/08/29 19:58:27 by ssitchsa         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/30 13:33:19 by albestae         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/08/30 16:27:47 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
