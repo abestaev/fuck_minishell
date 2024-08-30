@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 21:03:50 by albestae          #+#    #+#             */
-/*   Updated: 2024/08/30 22:23:54 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:17:38 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	is_builtin(t_command *command)
 		return (1);
 	else if (!ft_strcmp(command->command, "echo"))
 		return (1);
-	/* if (!ft_strcmp(command->command, "cd"))
+	else if (!ft_strcmp(command->command, "cd"))
 		return (1);
-	if (!ft_strcmp(command->command, "export"))
+	/* if (!ft_strcmp(command->command, "export"))
 		return (1);
 	if (!ft_strcmp(command->command, "unset"))
 		return (1);
@@ -37,5 +37,7 @@ int	exec_builtin(t_command *command, t_minishell *minishell)
 		return (print_env(minishell));
 	if (!ft_strcmp(command->command, "echo"))
 		return (ft_echo(command));
+	if (!ft_strcmp(command->command, "cd"))
+        return (ft_cd(minishell, command));
 	return (0);
 }
