@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/31 18:02:38 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:17:25 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void					free_env(t_env *env);
 // builtin
 int						ft_echo(t_command *current);
 int						print_env(t_minishell *minishell);
+int						ft_cd(t_minishell *minishell, t_command *current);
 
 // expand
 char					*ft_expand(char *str, t_minishell *minishell);
