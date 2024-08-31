@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/30 20:12:31 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:02:38 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_command
 	char				*command;
 	char				**arguments;
 	t_redir				*redirections;
-	int					fd[2];
 	pid_t				pid;
 	int					id;
 	struct s_command	*next;
@@ -84,11 +83,12 @@ typedef struct s_minishell
 	t_env				*env;
 	char				**env_tab;
 	char				**path;
-	bool				env_changed;
 	t_token				*token;
 	t_command			*command;
 	int					exit_status;
 	int					n_cmd;
+	int					prev_fd[2];
+	int					fd[2];
 }						t_minishell;
 
 // parsing

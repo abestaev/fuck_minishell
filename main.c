@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/30 20:43:11 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:03:31 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,19 @@ int	init_command(t_minishell *minishell, char *input)
 // 	minishell->path = get_path(minishell->env);
 // }
 
+static int init_exec(t_minishell *minishell)
+{	
+	t_command *tmp = minishell->command;
+	int i = 0;
+	while (tmp)
+	{
+		tmp->id = i;
+		tmp = tmp->next;
+		i++;
+	}
+	minishell->n_cmd = i;
+	return (0);
+}
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
@@ -77,7 +90,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	// to do: add proper initialization
-	minishell = (t_minishell){0, 0, 0, 0, 0, 0, 0, 0};
+	minishell = (t_minishell){0, 0, 0, 0, 0, 0, 0, {0, 0}, {0, 0}};
 	if (!(isatty(1)))
 		return (0);
 	if (copy_env(env, &minishell))
@@ -94,6 +107,7 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (init_command(&minishell, input))
 			continue ;
+		init_exec(&minishell);
 		run(minishell.command, &minishell);
 		// free
 		free_all_commands(&minishell);
