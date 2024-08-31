@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/31 18:07:26 by albestae         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:13:15 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	run(t_command *command, t_minishell *minishell)
 	
 	while (command)
 	{
-		printf("command->id = %d\n", command->id);
 		piping(command, minishell);
 		command->pid = fork();
 		if (command->pid == -1)
@@ -76,7 +75,6 @@ int	run(t_command *command, t_minishell *minishell)
 		}
 		if (command->pid == 0)
 		{
-			printf("ENFANT\n");
 			connect_child(command, minishell);
 			if (is_builtin(command))
 				exec_builtin(command, minishell);
@@ -89,11 +87,7 @@ int	run(t_command *command, t_minishell *minishell)
 			}
 		}
 		else 
-		{
-			
-			printf("PARENT\n");
 			connect_parent(command, minishell);
-		}
 		command = command->next;
 		i++;
 	}
@@ -124,7 +118,6 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 	char **path;
 	char **env;
 
-	printf("EXEC_CMD\n");
 	path = get_path(minishell->env);
 	env = env_to_tab(minishell->env);
 	if (ft_strchr(cmd->command, '/'))
