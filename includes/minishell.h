@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/31 18:17:25 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:03:02 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../libft/printf/ft_printf.h"
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -149,6 +150,9 @@ int						exec_cmd(t_command *cmd, t_minishell *minishell);
 int						is_builtin(t_command *command);
 int						exec_builtin(t_command *command,
 							t_minishell *minishell);
+
+// redirection
+int						get_redir(t_command *command);
 
 // signal
 

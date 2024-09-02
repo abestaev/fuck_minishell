@@ -6,28 +6,28 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/31 18:13:15 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:03:22 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int ft_wait(t_minishell *minishell);		
+static int	ft_wait(t_minishell *minishell);
 
-static int piping(t_command *command, t_minishell *minishell)
+static int	piping(t_command *command, t_minishell *minishell)
 {
 	if (command->id < minishell->n_cmd - 1)
 	{
 		if (pipe(minishell->fd) == -1)
 		{
-			perror("pipe failed\n");	
+			perror("pipe failed\n");
 			exit(EXIT_FAILURE);
 		}
 	}
 	return (0);
 }
 
-static int 	connect_child(t_command *command, t_minishell *minishell)
+static int	connect_child(t_command *command, t_minishell *minishell)
 {
 	if (command->id > 0)
 	{
@@ -44,7 +44,7 @@ static int 	connect_child(t_command *command, t_minishell *minishell)
 	return (0);
 }
 
-static int connect_parent(t_command *command, t_minishell *minishell)
+static int	connect_parent(t_command *command, t_minishell *minishell)
 {
 	if (command->id > 0)
 	{
@@ -59,11 +59,13 @@ static int connect_parent(t_command *command, t_minishell *minishell)
 	return (0);
 }
 
-int	run(t_command *command, t_minishell *minishell)	
+int	run(t_command *command, t_minishell *minishell)
 {
-	int	last_status = 0;
-	int i = 0;
-	
+	int	last_status;
+	int	i;
+
+	last_status = 0;
+	i = 0;
 	while (command)
 	{
 		piping(command, minishell);
@@ -76,6 +78,7 @@ int	run(t_command *command, t_minishell *minishell)
 		if (command->pid == 0)
 		{
 			connect_child(command, minishell);
+			get_redir(command);
 			if (is_builtin(command))
 				exec_builtin(command, minishell);
 			else if (exec_cmd(command, minishell))
@@ -86,7 +89,7 @@ int	run(t_command *command, t_minishell *minishell)
 				exit(1);
 			}
 		}
-		else 
+		else
 			connect_parent(command, minishell);
 		command = command->next;
 		i++;
@@ -95,15 +98,19 @@ int	run(t_command *command, t_minishell *minishell)
 	return (last_status);
 }
 
-static int ft_wait(t_minishell *minishell)
+static int	ft_wait(t_minishell *minishell)
 {
-	int status;
-	int last_status;
+	int	status;
+	int	last_status;
 
 	last_status = 0;
 	while (minishell->command)
 	{
-		waitpid(minishell->command->pid, &status, 0);
+		if (waitpid(minishell->command->pid, &status, 0) == -1)
+		{
+			perror("waitpid failed\n");
+			return (1);
+		}
 		if (WIFEXITED(status))
 			last_status = WEXITSTATUS(status);
 		minishell->command = minishell->command->next;
@@ -113,11 +120,12 @@ static int ft_wait(t_minishell *minishell)
 
 int	exec_cmd(t_command *cmd, t_minishell *minishell)
 {
-	size_t i;
-	char *abs_path = "";
-	char **path;
-	char **env;
+	size_t	i;
+	char	*abs_path;
+	char	**path;
+	char	**env;
 
+	abs_path = "";
 	path = get_path(minishell->env);
 	env = env_to_tab(minishell->env);
 	if (ft_strchr(cmd->command, '/'))

@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/31 18:03:31 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:01:45 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (init_command(&minishell, input))
 			continue ;
+		// print_command(minishell.command);
 		init_exec(&minishell);
 		run(minishell.command, &minishell);
 		// free
