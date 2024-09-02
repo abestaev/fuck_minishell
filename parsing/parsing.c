@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:00:59 by pc                #+#    #+#             */
-/*   Updated: 2024/08/27 23:23:32 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:00:16 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,3 @@ int	parsing(t_minishell *minishell)
 	/* free_token(token); */
 	return (0);
 }
-
-/*
-
-ls -l -R -a | wc -l
-
-arguments = ["ls", "-l", "-R", "-a"]
-
-*/
-
-// void	*cheat(void *a, void *b, void *c, void *d)
-// {
-// 	if (a)
-// 		*a = 0;
-// 	if (b)
-// 		*b = 0;
-// 	if (c)
-// 		*c = 0;
-// 	if (d)
-// 		*d = 0;
-// }

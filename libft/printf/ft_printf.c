@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:34:48 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/12 14:01:45 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:42:37 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_param(va_list args, char c, int i, int fd)
 	return (i);
 }
 
-__attribute__((destructor)) void ft_flush(void)
+__attribute__((destructor)) void	ft_flush(void)
 {
 	ft_putchar(-42, 0);
 }

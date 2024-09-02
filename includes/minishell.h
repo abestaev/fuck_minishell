@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/02 18:03:02 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:35:23 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void					free_env(t_env *env);
 int						ft_echo(t_command *current);
 int						print_env(t_minishell *minishell);
 int						ft_cd(t_minishell *minishell, t_command *current);
+int						ft_export(t_minishell *minishell, t_command *command);
 
 // expand
 char					*ft_expand(char *str, t_minishell *minishell);

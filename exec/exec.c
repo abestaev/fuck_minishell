@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/02 18:03:22 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/02 21:03:22 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	run(t_command *command, t_minishell *minishell)
 		}
 		else
 			connect_parent(command, minishell);
+		signal(SIGINT, SIG_IGN);
 		command = command->next;
 		i++;
 	}
@@ -102,18 +103,20 @@ static int	ft_wait(t_minishell *minishell)
 {
 	int	status;
 	int	last_status;
+	t_command *tmp;
 
 	last_status = 0;
-	while (minishell->command)
+	tmp = minishell->command;
+	while (tmp)
 	{
-		if (waitpid(minishell->command->pid, &status, 0) == -1)
+		if (waitpid(tmp->pid, &status, 0) == -1)
 		{
 			perror("waitpid failed\n");
 			return (1);
 		}
 		if (WIFEXITED(status))
 			last_status = WEXITSTATUS(status);
-		minishell->command = minishell->command->next;
+		tmp = tmp->next;
 	}
 	return (last_status);
 }

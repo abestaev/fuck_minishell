@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 21:03:50 by albestae          #+#    #+#             */
-/*   Updated: 2024/09/02 18:03:31 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:35:07 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	is_builtin(t_command *command)
 		return (1);
 	else if (!ft_strcmp(command->command, "cd"))
 		return (1);
-	/* if (!ft_strcmp(command->command, "export"))
+	else if (!ft_strcmp(command->command, "export"))
 		return (1);
-	if (!ft_strcmp(command->command, "unset"))
+	/*	if (!ft_strcmp(command->command, "unset"))
 		return (1);
 	if (!ft_strcmp(command->command, "exit"))
 		return (1);
@@ -39,5 +39,7 @@ int	exec_builtin(t_command *command, t_minishell *minishell)
 		return (ft_echo(command));
 	if (!ft_strcmp(command->command, "cd"))
 		return (ft_cd(minishell, command));
+	if (!ft_strcmp(command->command, "export"))
+        return (ft_export(minishell, command));
 	return (0);
 }

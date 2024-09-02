@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/02 14:01:45 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/02 21:01:06 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void	free_all_commands(t_minishell *minishell)
 		tmp = minishell->command->next;
 		free(minishell->command);
 		minishell->command = tmp;
+	}
+}
+void	print_env2(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env != 0)
+	{
+		printf("env numero: %d, key: %s, value: %s\n ", i, env->key,
+			env->value);
+		env = env->next;
+		i++;
 	}
 }
 
@@ -69,10 +82,13 @@ int	init_command(t_minishell *minishell, char *input)
 // 	minishell->path = get_path(minishell->env);
 // }
 
-static int init_exec(t_minishell *minishell)
-{	
-	t_command *tmp = minishell->command;
-	int i = 0;
+static int	init_exec(t_minishell *minishell)
+{
+	t_command	*tmp;
+	int			i;
+
+	tmp = minishell->command;
+	i = 0;
 	while (tmp)
 	{
 		tmp->id = i;
@@ -82,6 +98,7 @@ static int init_exec(t_minishell *minishell)
 	minishell->n_cmd = i;
 	return (0);
 }
+
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
@@ -95,7 +112,7 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	if (copy_env(env, &minishell))
 		return (0);
-	// print_env(minishell.env);
+	// print_env2(minishell.env);
 	while (1)
 	{
 		ft_signal();
@@ -107,12 +124,9 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (init_command(&minishell, input))
 			continue ;
-		// print_command(minishell.command);
 		init_exec(&minishell);
 		run(minishell.command, &minishell);
-		// free
 		free_all_commands(&minishell);
-		// minishell.token = 0;
 		free(input);
 	}
 	free_env(minishell.env);

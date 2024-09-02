@@ -8,7 +8,7 @@ MINISHELL_SRCS		= ./parsing/tokenizer.c ./parsing/tokenizer_utils.c ./parsing/au
 					./parsing/parsing_utils.c ./parsing/debug_utils.c \
 					./exec/path.c ./exec/exec.c ./exec/builtin.c ./exec/redirection.c ./exec/heredoc.c \
 					./expand/expand.c ./expand/expand_utils.c \
-					./builtin/cd.c ./builtin/echo.c ./builtin/print_env.c \
+					./builtin/cd.c ./builtin/echo.c ./builtin/print_env.c ./builtin/export.c \
 					./env/copy_env.c ./env/env_utils.c \
 					./signal/signal.c \
 					main.c
