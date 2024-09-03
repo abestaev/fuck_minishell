@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 14:29:41 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:06:29 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static int	init_exec(t_minishell *minishell)
 	while (tmp)
 	{
 		tmp->id = i;
+		tmp->is_hd = false;
+		tmp->hd_filename = NULL;
 		tmp = tmp->next;
 		i++;
 	}
@@ -112,7 +114,6 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	if (copy_env(env, &minishell))
 		return (0);
-	// print_env2(minishell.env);
 	while (1)
 	{
 		ft_signal();
@@ -125,6 +126,7 @@ int	main(int ac, char **av, char **env)
 		if (init_command(&minishell, input))
 			continue ;
 		init_exec(&minishell);
+		// print_command(minishell.command);
 		run(minishell.command, &minishell);
 		free_all_commands(&minishell);
 		free(input);
