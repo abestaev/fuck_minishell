@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:56:18 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 14:37:17 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:26:40 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_echo(t_command *current)
 	if (!tab[i])
 	{
 		ft_putstr_fd("\n", 1);
-		exit(EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 	}
 	flag = ft_flag(tab);
 	if (flag)
@@ -55,5 +55,5 @@ int	ft_echo(t_command *current)
 	}
 	if (!flag)
 		ft_putstr_fd("\n", 1);
-	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 16:16:00 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:23:34 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,36 @@ static int	connect_parent(t_command *command, t_minishell *minishell)
 	return (0);
 }
 
+int	run_single_cmd(t_command *command, t_minishell *minishell)
+{
+	int last_status;
+
+	last_status = 0;
+	if (is_builtin(command))
+	{
+		get_redir(command);
+		exec_builtin(command, minishell);
+		return (0);
+	}
+	command->pid = fork();
+	if (command->pid == -1)
+	{
+		ft_putstr_fd("fork failed\n", 2);
+		return (1);
+	}
+	if (command->pid == 0)
+	{
+		get_redir(command);
+		if (exec_cmd(command, minishell))
+		{
+			ft_printf("%s: command not found\n", command->command);
+			exit(1);
+		}
+	}
+	last_status = ft_wait(minishell);
+	return (0);
+}
+
 int	run(t_command *command, t_minishell *minishell)
 {
 	int	last_status;
@@ -80,7 +110,7 @@ int	run(t_command *command, t_minishell *minishell)
 			connect_child(command, minishell);
 			get_redir(command);
 			if (is_builtin(command))
-				exec_builtin(command, minishell);
+				exit(exec_builtin(command, minishell));
 			else if (exec_cmd(command, minishell))
 			{
 				ft_printf("%s: command not found\n", command->command);

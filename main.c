@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 18:06:29 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:20:58 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,10 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		init_exec(&minishell);
 		// print_command(minishell.command);
-		run(minishell.command, &minishell);
+		if (minishell.n_cmd == 1)
+			run_single_cmd(minishell.command, &minishell);
+		else
+			run(minishell.command, &minishell);
 		free_all_commands(&minishell);
 		free(input);
 	}

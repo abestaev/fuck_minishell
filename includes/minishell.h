@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 17:49:31 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/03 20:20:33 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_redir
 {
 	char				*file;
 	t_pety				type;
-	int 				fd_heredoc;
+	int					fd_heredoc;
 	struct s_redir		*next;
 }						t_redir;
 
@@ -70,7 +70,7 @@ typedef struct s_command
 	t_redir				*redirections;
 	pid_t				pid;
 	int					id;
-	bool		is_hd;
+	bool				is_hd;
 	char				*hd_filename;
 	struct s_command	*next;
 }						t_command;
@@ -135,13 +135,11 @@ void					free_tab(char **tab);
 char					*match_env(char *str, t_minishell *minishell);
 void					free_env(t_env *env);
 
-
 // builtin
 int						ft_echo(t_command *current);
 int						print_env(t_minishell *minishell);
 int						ft_cd(t_minishell *minishell, t_command *current);
 int						ft_export(t_minishell *minishell, t_command *command);
-
 
 // expand
 char					*ft_expand(char *str, t_minishell *minishell);
@@ -150,24 +148,21 @@ void					ft_env_expand(char *str, char *res, int *i,
 int						ft_env_len(char *str, int *i, t_minishell *minishell);
 int						ft_isalnumspe(char c);
 
-
 // exec
 int						run(t_command *command, t_minishell *minishell);
 int						exec_cmd(t_command *cmd, t_minishell *minishell);
 int						is_builtin(t_command *command);
 int						exec_builtin(t_command *command,
 							t_minishell *minishell);
-
+int						run_single_cmd(t_command *command, t_minishell *minishell);
 
 // redirection
 int						get_redir(t_command *command);
 
-
 // heredoc
-char *generate_name(void);
-int	read_heredoc(t_command *command, char *delimiter);
-int check_heredoc(t_command *command);
-
+char					*generate_name(void);
+int						read_heredoc(t_command *command, char *delimiter);
+int						check_heredoc(t_command *command);
 
 // signal
 void					ft_signal(void);
