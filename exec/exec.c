@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 20:23:34 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:11:40 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	run_single_cmd(t_command *command, t_minishell *minishell)
 		if (exec_cmd(command, minishell))
 		{
 			ft_printf("%s: command not found\n", command->command);
+			free_all_commands(minishell);
+			free_env(minishell->env);
 			exit(1);
 		}
 	}

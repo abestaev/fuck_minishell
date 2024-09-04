@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 21:03:50 by albestae          #+#    #+#             */
-/*   Updated: 2024/09/02 18:35:07 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:39:49 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	is_builtin(t_command *command)
 		return (1);
 	else if (!ft_strcmp(command->command, "export"))
 		return (1);
-	/*	if (!ft_strcmp(command->command, "unset"))
+	else if (!ft_strcmp(command->command, "unset"))
 		return (1);
 	if (!ft_strcmp(command->command, "exit"))
 		return (1);
 	if (!ft_strcmp(command->command, "pwd"))
-		return (1);*/
+		return (1);
 	return (0);
 }
 
@@ -41,5 +41,9 @@ int	exec_builtin(t_command *command, t_minishell *minishell)
 		return (ft_cd(minishell, command));
 	if (!ft_strcmp(command->command, "export"))
         return (ft_export(minishell, command));
+	if (!ft_strcmp(command->command, "pwd"))
+		return (ft_pwd(minishell));
+	if (!ft_strcmp(command->command, "unset"))
+		return (ft_unset(minishell, command));
 	return (0);
 }

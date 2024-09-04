@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:31:34 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/01 16:25:48 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:00:39 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_new_env(t_minishell *minishell, char *str)
 		value[j++] = str[i++];
 	value[j] = 0;
 	new->value = value;
-	return (ft_envadd_back(&minishell->env ,new) ,0);
+	return (ft_envadd_back(&minishell->env ,new), 0);
 }
 
 int	ft_export(t_minishell *minishell, t_command *command)

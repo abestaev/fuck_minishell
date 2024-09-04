@@ -1,0 +1,15 @@
+builtin
+env
+exec
+expand
+ignore.supp
+includes
+libft
+main.c
+main.o
+Makefile
+minishell
+out
+parsing
+README.md
+signal

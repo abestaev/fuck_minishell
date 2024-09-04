@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 20:20:33 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:38:42 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-extern int				g_sigint;
+extern int				g_signal_received;
 
 typedef enum e_bool
 {
@@ -140,7 +140,9 @@ int						ft_echo(t_command *current);
 int						print_env(t_minishell *minishell);
 int						ft_cd(t_minishell *minishell, t_command *current);
 int						ft_export(t_minishell *minishell, t_command *command);
-
+int						ft_pwd(t_minishell *minishell);
+int						lst_remove(t_minishell *minishell, char *key);
+int						ft_unset(t_minishell *minishell, t_command *command);
 // expand
 char					*ft_expand(char *str, t_minishell *minishell);
 void					ft_env_expand(char *str, char *res, int *i,
@@ -154,7 +156,8 @@ int						exec_cmd(t_command *cmd, t_minishell *minishell);
 int						is_builtin(t_command *command);
 int						exec_builtin(t_command *command,
 							t_minishell *minishell);
-int						run_single_cmd(t_command *command, t_minishell *minishell);
+int						run_single_cmd(t_command *command,
+							t_minishell *minishell);
 
 // redirection
 int						get_redir(t_command *command);
@@ -166,5 +169,6 @@ int						check_heredoc(t_command *command);
 
 // signal
 void					ft_signal(void);
+void					signal_handler_heredoc(int signum);
 
 #endif
