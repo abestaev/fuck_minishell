@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 23:38:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 16:12:39 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:08:23 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_onlydigit(char *str)
 int 	ft_exit(t_minishell *minishell, t_command *command)
 {
 	if (get_argc(command) == 1)
-		exit_shell(minishell, true);
+		exit_shell(minishell, 0, true);
 	if (get_argc(command) > 2)
 	{
 		ft_dprintf(2, "exit: too many arguments\n");
@@ -76,18 +76,18 @@ int 	ft_exit(t_minishell *minishell, t_command *command)
 		ft_dprintf(2, "exit: %s: numeric argument required\n",
 		command->arguments[1]);
 		minishell->exit_status = 2;
-		exit_shell(minishell, false);
+		exit_shell(minishell, 2,false);
 	}
 	minishell->exit_status = (ft_atoi(command->arguments[1]) % 256);
-	exit_shell(minishell, true);
+	exit_shell(minishell, 0,true);
 	return (0);
 }
 
-int exit_shell(t_minishell *minishell, bool display)
+int exit_shell(t_minishell *minishell, int exit_code, bool display)
 {
 	if (display)
 		ft_putstr_fd("exit\n", 2);
 	free_all_commands(minishell);
 	free_env(minishell->env);
-	exit(minishell->exit_status);
+	exit(exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 12:54:55 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:14:55 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	free_all_commands(t_minishell *minishell)
 
 	while (minishell->command)
 	{
+		if (minishell->command->hd_filename)
+			free(minishell->command->hd_filename);
 		free_command(minishell->command);
 		tmp = minishell->command->next;
 		free(minishell->command);
@@ -74,14 +76,6 @@ int	init_command(t_minishell *minishell, char *input)
 	return (0);
 }
 
-// void	init_env(t_minishell *minishell, char **env)
-// {
-// 	if (copy_env(env, minishell))
-// 		return ;
-// 	minishell->env_tab = env_to_tab(minishell->env);
-// 	minishell->path = get_path(minishell->env);
-// }
-
 static int	init_exec(t_minishell *minishell)
 {
 	t_command	*tmp;
@@ -108,7 +102,6 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	// to do: add proper initialization
 	minishell = (t_minishell){0, 0, 0, 0, 0, 0, 0, {0, 0}, {0, 0}};
 	if (!(isatty(1)))
 		return (0);
@@ -126,11 +119,10 @@ int	main(int ac, char **av, char **env)
 		if (init_command(&minishell, input))
 			continue ;
 		init_exec(&minishell);
-		// print_command(minishell.command);
 		if (minishell.n_cmd == 1)
-			run_single_cmd(minishell.command, &minishell);
+			minishell.exit_status = run_single_cmd(minishell.command, &minishell);
 		else
-			run(minishell.command, &minishell);
+			minishell.exit_status = run(minishell.command, &minishell);
 		free_all_commands(&minishell);
 		free(input);
 	}

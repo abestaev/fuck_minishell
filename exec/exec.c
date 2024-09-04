@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 13:11:40 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:14:21 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ static int	connect_parent(t_command *command, t_minishell *minishell)
 
 int	run_single_cmd(t_command *command, t_minishell *minishell)
 {
-	int last_status;
-
-	last_status = 0;
 	if (is_builtin(command))
 	{
 		get_redir(command);
@@ -82,12 +79,11 @@ int	run_single_cmd(t_command *command, t_minishell *minishell)
 		if (exec_cmd(command, minishell))
 		{
 			ft_printf("%s: command not found\n", command->command);
-			free_all_commands(minishell);
-			free_env(minishell->env);
-			exit(1);
+			minishell->exit_status = 127;
+			exit_shell(minishell, 127, false);
 		}
 	}
-	last_status = ft_wait(minishell);
+	minishell->exit_status = ft_wait(minishell);
 	return (0);
 }
 
