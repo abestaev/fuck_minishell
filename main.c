@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 17:14:55 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:02:39 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// todo fonction dans le parsing pour les quotes,
+//	les retirer si elles se trouvent au milieu d'une str
 
 void	free_token(t_token *token)
 {
@@ -120,7 +123,8 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		init_exec(&minishell);
 		if (minishell.n_cmd == 1)
-			minishell.exit_status = run_single_cmd(minishell.command, &minishell);
+			minishell.exit_status = run_single_cmd(minishell.command,
+					&minishell);
 		else
 			minishell.exit_status = run(minishell.command, &minishell);
 		free_all_commands(&minishell);

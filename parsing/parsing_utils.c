@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 12:25:05 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:43:18 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,10 @@ int	open_quote(char *str)
 		if (str[i] == '\'' || str[i] == '"')
 		{
 			quote = str[i++];
-			if (str[i + 1] == 0 && str[i] != quote)
-				return (1);
 			while (str[i] && str[i] != quote)
-			{
-				if (str[i + 1] == 0 && str[i] != quote)
-					return (1);
 				i++;
-			}
+			if (str[i] != quote)
+				return (1);
 		}
 		i++;
 	}

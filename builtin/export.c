@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:31:34 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/03 21:00:39 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:29:36 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// ajouter fonction pour modifier seulement la value si la key existe deja
 
 int	is_equal(char *str)
 {
@@ -18,7 +20,10 @@ int	is_equal(char *str)
 
 	if (!((str[0] >= 'a' && str[0] <= 'z') || (str[0] >= 'A' && str[0] <= 'Z')
 			|| str[0] == '_'))
+	{
+		ft_dprintf(2, "export : '%s' not a valid identifier\n", str);
 		return (1);
+	}
 	i = 0;
 	while (str[i])
 	{
@@ -46,7 +51,10 @@ int	is_correct(char *str)
 		else if (str[i] == '_')
 			i++;
 		else
+		{
+			ft_dprintf(2, "export : '%s' not a valid identifier\n", str);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -56,7 +64,6 @@ int	ft_new_env(t_minishell *minishell, char *str)
 	t_env	*new;
 	int		i;
 	int		j;
-	char	*value;
 
 	i = 0;
 	j = 0;
@@ -66,18 +73,17 @@ int	ft_new_env(t_minishell *minishell, char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	i++;
-	new->key = malloc(i);
+	new->key = ft_substr(str, j, i - 1);
 	if (!(new->key))
 		return (free(new), 1);
-	ft_strlcpy(new->key, str, i);
-	value = malloc(ft_strlen(str) - i + 1);
-	if (!value)
+	new->value = malloc(ft_strlen(str) - i + 1);
+	if (!new->value)
 		return (free(new->key), free(new), 1);
 	while (str[i])
-		value[j++] = str[i++];
-	value[j] = 0;
-	new->value = value;
-	return (ft_envadd_back(&minishell->env ,new), 0);
+		new->value[j++] = str[i++];
+	new->value[j] = 0;
+	new->next = NULL;
+	return (ft_envadd_back(&minishell->env, new), 0);
 }
 
 int	ft_export(t_minishell *minishell, t_command *command)
@@ -86,11 +92,16 @@ int	ft_export(t_minishell *minishell, t_command *command)
 	int		i;
 
 	tab = command->arguments;
-	i = 0;
+	i = 1;
+	if (!tab[i])
+		return (1);
 	while (tab[i])
 	{
-		if (is_correct(tab[i]))
-			ft_new_env(minishell,tab[i]);
+		if (!is_correct(tab[i]))
+		{
+			if (ft_new_env(minishell, tab[i]))
+				ft_dprintf(2, "Error malloc new env\n");
+		}
 		i++;
 	}
 	return (0);
