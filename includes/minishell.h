@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 13:38:42 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:02:41 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ int						ft_export(t_minishell *minishell, t_command *command);
 int						ft_pwd(t_minishell *minishell);
 int						lst_remove(t_minishell *minishell, char *key);
 int						ft_unset(t_minishell *minishell, t_command *command);
+int						ft_exit(t_minishell *minishell, t_command *command);
+
 // expand
 char					*ft_expand(char *str, t_minishell *minishell);
 void					ft_env_expand(char *str, char *res, int *i,
@@ -170,5 +172,8 @@ int						check_heredoc(t_command *command);
 // signal
 void					ft_signal(void);
 void					signal_handler_heredoc(int signum);
+
+// utils
+int						exit_shell(t_minishell *minishell, bool display);
 
 #endif

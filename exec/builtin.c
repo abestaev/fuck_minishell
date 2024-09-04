@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 21:03:50 by albestae          #+#    #+#             */
-/*   Updated: 2024/09/04 13:39:49 by albestae         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:02:09 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ int	exec_builtin(t_command *command, t_minishell *minishell)
 		return (ft_pwd(minishell));
 	if (!ft_strcmp(command->command, "unset"))
 		return (ft_unset(minishell, command));
+	if (!ft_strcmp(command->command, "exit"))
+		return (ft_exit(minishell, command));
 	return (0);
 }
