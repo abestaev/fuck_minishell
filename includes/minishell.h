@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 17:04:14 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/08 01:10:51 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,10 @@ int						check_heredoc(t_command *command);
 // signal
 void					ft_signal(void);
 void					signal_handler_heredoc(int signum);
+void					heredoc_signal_handler(int sig);
 
 // utils
-int						exit_shell(t_minishell *minishell, int exit_code, bool display);
+int						exit_shell(t_minishell *minishell, int exit_code,
+							bool display);
 
 #endif

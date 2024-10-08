@@ -1,3 +1,6 @@
+GREEN = \033[0;32m
+RESET = \033[0m
+
 CC					= cc
 RM					= rm -f
 CFLAGS				= -Wextra -Wall -Werror -g3
@@ -29,6 +32,7 @@ all:			$(MINISHELL_NAME)
 
 $(MINISHELL_NAME):	$(MINISHELL_OBJS) $(LIBFT) $(LIBFTPRINTF)
 					@$(CC) -o $(MINISHELL_NAME) $(MINISHELL_OBJS) $(CFLAGS) $(LDFLAGS) -I$(INCLUDE_PATH)
+					@echo "$(GREEN)successfully compiled$(RESET)"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH)
@@ -40,11 +44,13 @@ clean:
 				@$(RM) $(MINISHELL_OBJS)
 				@$(MAKE) -C $(LIBFT_PATH) clean
 				@$(MAKE) -C $(LIBFTPRINTF_PATH) clean
+				@echo "Object files cleaned"
 
 fclean:	 		clean
 				@$(RM) $(MINISHELL_NAME)
 				@$(MAKE) -C $(LIBFT_PATH) fclean
 				@$(MAKE) -C $(LIBFTPRINTF_PATH) fclean
+				@echo "Executable $(NAME) removed"
 
 re:				fclean 
 				@$(MAKE) all
