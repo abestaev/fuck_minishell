@@ -6,13 +6,13 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 22:45:40 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 17:53:09 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/11 22:42:01 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void get_pipe(char *str, int *i, t_token *token)
+void	get_pipe(char *str, int *i, t_token *token)
 {
 	int	j;
 
@@ -27,7 +27,7 @@ void get_pipe(char *str, int *i, t_token *token)
 	token->next = 0;
 }
 
-void get_redir_single(char *str, int *i, t_token *token)
+void	get_redir_single(char *str, int *i, t_token *token)
 {
 	int	j;
 
@@ -42,7 +42,7 @@ void get_redir_single(char *str, int *i, t_token *token)
 	token->next = 0;
 }
 
-void get_redir_double(char *str, int *i, t_token *token)
+void	get_redir_double(char *str, int *i, t_token *token)
 {
 	int	j;
 
@@ -60,32 +60,48 @@ void get_redir_double(char *str, int *i, t_token *token)
 	token->next = 0;
 }
 
-int	is_delimitor(char *str, int i)
+int	get_len_word(char *input, int i)
 {
-	if (str[i] == '|' || str[i] == '>' || str[i] == '<')
-		return (1);
-	if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		return (1);
-	return (0);
+	int		len;
+	char	quote;
+
+	len = 0;
+	while (input[i] && !is_delimitor(input, i))
+	{
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			quote = input[i];
+			len++;
+			while (input[++i] != quote)
+			{
+				len++;
+			}
+			len++;
+		}
+		len++;
+		i++;
+	}
+	return (len);
 }
 
-void get_word(char *str, int *i, t_token *token)
+void	get_word(char *str, int *i, t_token *token)
 {
 	int	j;
-	int	k;
 
-	k = 0;
-	j = *i;
-	if (str[*i] == '"' || str[*i] == '\'')
-		return (quote_word(str, i, token, str[*i]));
-	while (str[*i] && !is_delimitor(str, *i))
-		(*i)++;
-	token->name = malloc((*i - j + 1) * sizeof(char));
+	token->name = malloc((get_len_word(str, *i) + 1) * sizeof(char));
 	if (!token->name)
 		return ;
-	while (j < *i)
-		token->name[k++] = str[j++];
-	token->name[k] = 0;
+	fprintf(stderr, "[%s] %i\n", __func__, *i);
+	j = 0;
+	while (str[*i] && !is_delimitor(str, *i))
+	{
+		if (str[*i] == '"' || str[*i] == '\'')
+			cat_quotes(token->name, str, &j, i);
+		else
+			token->name[j++] = str[(*i)++];
+	}
+	token->name[j] = 0;
+	fprintf(stderr, "[%s] %s\n", __func__, token->name);
 	token->type = WORD;
 	token->next = 0;
 }

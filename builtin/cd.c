@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:27:27 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/30 23:38:02 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/13 15:49:35 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*find_env(const char *key, t_minishell *minishell)
 {
 	t_env	*env;
 
-	env = minishell->env;  // Assurez-vous que minishell->env est bien le point d'entrée de la liste chaînée des variables d'environnement.
+	env = minishell->env;
 	while (env)
 	{
 		if (ft_strcmp(env->key, key) == 0)
@@ -34,7 +34,6 @@ int	ft_cd(t_minishell *minishell, t_command *current)
 	char	new_dir[2048];
 
 	tab = current->arguments;
-
 	if (tab && tab[0] && tab[1] && tab[2])
 		return (ft_putstr_fd("too many arguments\n", 2), 1);
 	if (tab && !tab[1])

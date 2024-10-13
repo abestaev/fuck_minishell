@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 17:43:18 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/11 22:39:12 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	command_add_back(t_command **command_list, t_command *new_command)
 
 void	free_command(t_command *command)
 {
-	int	i;
-	t_redir *tmp;
+	int		i;
+	t_redir	*tmp;
 
 	i = 0;
 	if (command->arguments)
@@ -113,27 +113,4 @@ void	free_command(t_command *command)
 		free(command->redirections);
 		command->redirections = tmp;
 	}
-}
-
-int	open_quote(char *str)
-{
-	int		i;
-	char	quote;
-
-	i = 0;
-	if (!str)
-		return (1);
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '"')
-		{
-			quote = str[i++];
-			while (str[i] && str[i] != quote)
-				i++;
-			if (str[i] != quote)
-				return (1);
-		}
-		i++;
-	}
-	return (0);
 }

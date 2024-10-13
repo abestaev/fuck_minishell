@@ -1,45 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 20:07:48 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/13 15:47:12 by ssitchsa         ###   ########.fr       */
+/*   Created: 2024/10/13 15:55:07 by ssitchsa          #+#    #+#             */
+/*   Updated: 2024/10/13 15:57:23 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i++;
-	}
-	if (s[i] == (char)c)
-		return ((char *)(s + i));
-	return (NULL);
-}
-
-int	ft_strchri(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return (i);
-		i++;
-	}
-	if (s[i] == (char)c)
-		return (i);
-	return (-1);
-}

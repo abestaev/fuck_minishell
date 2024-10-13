@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:23:53 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/08 06:10:54 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/13 15:44:49 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ char	*generate_name(void)
 
 int	read_heredoc(t_command *command, char *delimiter)
 {
-	int fd_hd;
-	char *line = NULL;
-	struct sigaction sa;
+	int					fd_hd;
+	char				*line;
+	struct sigaction	sa;
 
-    sa.sa_handler = heredoc_signal_handler;
-    sigemptyset(&sa.sa_mask);
-    sigaction(SIGINT, &sa, NULL);
-    signal(SIGQUIT, SIG_IGN); 
+	line = NULL;
+	sa.sa_handler = heredoc_signal_handler;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 	command->is_hd = TRUE;
 	if (command->hd_filename)
 	{
@@ -58,7 +59,7 @@ int	read_heredoc(t_command *command, char *delimiter)
 	{
 		line = readline("\033[3;34mheredoc> \033[0m");
 		if (!line)
-			break ;	
+			break ;
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
@@ -74,9 +75,9 @@ int	read_heredoc(t_command *command, char *delimiter)
 	return (EXIT_SUCCESS);
 }
 
-int check_heredoc(t_command *command)
+int	check_heredoc(t_command *command)
 {
-	int fd;
+	int	fd;
 
 	fd = open(command->hd_filename, O_RDONLY);
 	if (fd == -1)

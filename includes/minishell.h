@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/08 01:10:51 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/13 15:54:24 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,12 @@ void					ft_env_expand(char *str, char *res, int *i,
 int						ft_env_len(char *str, int *i, t_minishell *minishell);
 int						ft_isalnumspe(char c);
 
+// quotes
+char					*retirerquote(char *str);
+int						open_quote(char *str);
+void					cat_quotes(char *name, char *input, int *j, int *i);
+int						is_delimitor(char *str, int i);
+
 // exec
 int						run(t_command *command, t_minishell *minishell);
 int						exec_cmd(t_command *cmd, t_minishell *minishell);
@@ -177,5 +183,6 @@ void					heredoc_signal_handler(int sig);
 // utils
 int						exit_shell(t_minishell *minishell, int exit_code,
 							bool display);
+void					print_env2(t_env *env);
 
 #endif

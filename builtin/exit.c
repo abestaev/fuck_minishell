@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 23:38:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 17:08:23 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/13 15:49:57 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int get_argc(t_command *command)
+static int	get_argc(t_command *command)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ static int get_argc(t_command *command)
 	return (i);
 }
 
-static int check_size(char *str)
+static int	check_size(char *str)
 {
 	if (!str)
 		return (1);
@@ -61,7 +61,7 @@ int	ft_onlydigit(char *str)
 	return (0);
 }
 
-int 	ft_exit(t_minishell *minishell, t_command *command)
+int	ft_exit(t_minishell *minishell, t_command *command)
 {
 	if (get_argc(command) == 1)
 		exit_shell(minishell, 0, true);
@@ -71,19 +71,20 @@ int 	ft_exit(t_minishell *minishell, t_command *command)
 		minishell->exit_status = 1;
 		return (1);
 	}
-	if (ft_onlydigit(command->arguments[1]) || check_size(command->arguments[1]))
+	if (ft_onlydigit(command->arguments[1])
+		|| check_size(command->arguments[1]))
 	{
 		ft_dprintf(2, "exit: %s: numeric argument required\n",
-		command->arguments[1]);
+			command->arguments[1]);
 		minishell->exit_status = 2;
-		exit_shell(minishell, 2,false);
+		exit_shell(minishell, 2, false);
 	}
 	minishell->exit_status = (ft_atoi(command->arguments[1]) % 256);
-	exit_shell(minishell, 0,true);
+	exit_shell(minishell, 0, true);
 	return (0);
 }
 
-int exit_shell(t_minishell *minishell, int exit_code, bool display)
+int	exit_shell(t_minishell *minishell, int exit_code, bool display)
 {
 	if (display)
 		ft_putstr_fd("exit\n", 2);

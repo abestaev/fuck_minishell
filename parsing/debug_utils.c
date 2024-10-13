@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:55:42 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/26 20:26:51 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/13 15:53:11 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,20 @@ void	print_command(t_command *command)
 		print_tab(command->arguments);
 		print_redir(command->redirections);
 		command = command->next;
+		i++;
+	}
+}
+
+void	print_env2(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env != 0)
+	{
+		printf("env numero: %d, key: %s, value: %s\n ", i, env->key,
+			env->value);
+		env = env->next;
 		i++;
 	}
 }

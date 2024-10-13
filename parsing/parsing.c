@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:00:59 by pc                #+#    #+#             */
-/*   Updated: 2024/09/02 19:00:16 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/11 22:32:09 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int	process_parsing(t_command *command, t_token **token, t_minishell *minishell)
 		*token = (*token)->next;
 	}
 	else if ((*token)->type == WORD)
+	{
+		fprintf(stderr, "[%s] %s\n", __func__, (*token)->name);
 		if (add_arguments(command, *token, minishell))
 			return (1);
+	}
 	*token = (*token)->next;
 	return (0);
 }
@@ -52,6 +55,5 @@ int	parsing(t_minishell *minishell)
 		command_add_back(&minishell->command, command);
 		command = NULL;
 	}
-	/* free_token(token); */
 	return (0);
 }

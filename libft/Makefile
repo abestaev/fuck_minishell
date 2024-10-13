@@ -24,7 +24,7 @@ LIB = libft.a
 
 CC = cc	
 
-CFLAGS = -Wall -Werror -Wextra -I ./ -Ofast -march=native
+CFLAGS = -Wall -Werror -Wextra -I ./ -Ofast -march=native -g3
 
 .c.o:
 		@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}

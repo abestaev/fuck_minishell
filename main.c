@@ -6,14 +6,11 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 19:02:39 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/13 15:52:45 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// todo fonction dans le parsing pour les quotes,
-//	les retirer si elles se trouvent au milieu d'une str
 
 void	free_token(t_token *token)
 {
@@ -42,19 +39,6 @@ void	free_all_commands(t_minishell *minishell)
 		minishell->command = tmp;
 	}
 }
-void	print_env2(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	while (env != 0)
-	{
-		printf("env numero: %d, key: %s, value: %s\n ", i, env->key,
-			env->value);
-		env = env->next;
-		i++;
-	}
-}
 
 int	init_command(t_minishell *minishell, char *input)
 {
@@ -66,6 +50,8 @@ int	init_command(t_minishell *minishell, char *input)
 	}
 	if (tokenizer(input, minishell))
 		return (printf("error tokenizer\n"), 1);
+	//
+	print_token(minishell->token);
 	if (!init_automate(minishell->token))
 	{
 		free_token(minishell->token);

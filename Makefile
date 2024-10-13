@@ -8,7 +8,7 @@ LDFLAGS				= -L./libft/printf/ -L./libft/ -lreadline -lncurses -lftprintf -lft
 INCLUDE_PATH 		= ./includes/
 MINISHELL_NAME 		= minishell
 MINISHELL_SRCS		= ./parsing/tokenizer.c ./parsing/tokenizer_utils.c ./parsing/automate.c ./parsing/parsing.c \
-					./parsing/parsing_utils.c ./parsing/debug_utils.c \
+					./parsing/parsing_utils.c ./parsing/debug_utils.c ./parsing/quote.c \
 					./exec/path.c ./exec/exec.c ./exec/builtin.c ./exec/redirection.c ./exec/heredoc.c \
 					./expand/expand.c ./expand/expand_utils.c \
 					./builtin/cd.c ./builtin/echo.c ./builtin/print_env.c ./builtin/export.c \
