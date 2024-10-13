@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:23:53 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/13 15:44:49 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/13 21:35:22 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,16 @@ char	*generate_name(void)
 	free(num);
 	return (filename);
 }
-
+// to do deplacer la gestion du ctrl c ailleurs
 int	read_heredoc(t_command *command, char *delimiter)
 {
 	int					fd_hd;
 	char				*line;
-	struct sigaction	sa;
 
 	line = NULL;
-	sa.sa_handler = heredoc_signal_handler;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
+		
+	
+	ft_signal_heredoc();
 	command->is_hd = TRUE;
 	if (command->hd_filename)
 	{
@@ -57,6 +55,14 @@ int	read_heredoc(t_command *command, char *delimiter)
 	fd_hd = open(command->hd_filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
+		if (g_signal_received)
+		{
+			close(fd_hd);
+			unlink(command->hd_filename);
+			free(command->hd_filename);
+			ft_signal();
+			return (EXIT_SUCCESS);
+		}
 		line = readline("\033[3;34mheredoc> \033[0m");
 		if (!line)
 			break ;
@@ -75,7 +81,7 @@ int	read_heredoc(t_command *command, char *delimiter)
 	return (EXIT_SUCCESS);
 }
 
-int	check_heredoc(t_command *command)
+int	link_heredoc(t_command *command)
 {
 	int	fd;
 
@@ -92,4 +98,24 @@ int	check_heredoc(t_command *command)
 		return (EXIT_FAILURE);
 	}
 	return (fd);
+}
+
+int	open_heredoc(t_command *command)
+{
+	t_command *tmp;
+	t_redir *tmp2;
+
+	tmp = command;
+	while (tmp)
+	{
+		tmp2 = tmp->redirections;
+		while (tmp2)
+		{
+			if (tmp2->type == HEREDOC)
+				read_heredoc(tmp, tmp2->file);
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+	}
+	return (EXIT_SUCCESS);
 }

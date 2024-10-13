@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 17:14:21 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/10 04:04:48 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,13 @@
 
 static int	ft_wait(t_minishell *minishell);
 
-static int	piping(t_command *command, t_minishell *minishell)
-{
-	if (command->id < minishell->n_cmd - 1)
-	{
-		if (pipe(minishell->fd) == -1)
-		{
-			perror("pipe failed\n");
-			exit(EXIT_FAILURE);
-		}
-	}
-	return (0);
-}
-
-static int	connect_child(t_command *command, t_minishell *minishell)
-{
-	if (command->id > 0)
-	{
-		dup2(minishell->prev_fd[0], STDIN_FILENO);
-		close(minishell->prev_fd[0]);
-		close(minishell->prev_fd[1]);
-	}
-	if (command->id < minishell->n_cmd - 1)
-	{
-		dup2(minishell->fd[1], STDOUT_FILENO);
-		close(minishell->fd[0]);
-		close(minishell->fd[1]);
-	}
-	return (0);
-}
-
-static int	connect_parent(t_command *command, t_minishell *minishell)
-{
-	if (command->id > 0)
-	{
-		close(minishell->prev_fd[0]);
-		close(minishell->prev_fd[1]);
-	}
-	if (command->id < minishell->n_cmd - 1)
-	{
-		minishell->prev_fd[0] = minishell->fd[0];
-		minishell->prev_fd[1] = minishell->fd[1];
-	}
-	return (0);
-}
-
 int	run_single_cmd(t_command *command, t_minishell *minishell)
 {
+	open_heredoc(command);
 	if (is_builtin(command))
 	{
 		get_redir(command);
-		exec_builtin(command, minishell);
-		return (0);
+		return (exec_builtin(command, minishell));
 	}
 	command->pid = fork();
 	if (command->pid == -1)
@@ -94,6 +49,7 @@ int	run(t_command *command, t_minishell *minishell)
 
 	last_status = 0;
 	i = 0;
+	open_heredoc(command);
 	while (command)
 	{
 		piping(command, minishell);
@@ -161,12 +117,8 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 	env = env_to_tab(minishell->env);
 	if (ft_strchr(cmd->command, '/'))
 		if (execve(cmd->command, cmd->arguments, env))
-		{
-			free_tab(path);
-			free_tab(env);
-			free(abs_path);
-			return (1);
-		}
+			return (free_tab(path), free_tab(env), 0);
+
 	i = 0;
 	while (path[i])
 	{
@@ -175,7 +127,5 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 		free(abs_path);
 		i++;
 	}
-	free_tab(path);
-	free_tab(env);
-	return (1);
+	return (free_tab(path), free_tab(env), 1);
 }
