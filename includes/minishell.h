@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/13 17:34:11 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/14 01:33:14 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int						ft_pwd(t_minishell *minishell);
 int						lst_remove(t_minishell *minishell, char *key);
 int						ft_unset(t_minishell *minishell, t_command *command);
 int						ft_exit(t_minishell *minishell, t_command *command);
+int						ft_change_value(t_env *env, char *value);
 
 // expand
 char					*ft_expand(char *str, t_minishell *minishell);

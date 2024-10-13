@@ -6,13 +6,13 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:31:34 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/09/04 19:29:36 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/14 01:34:07 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// ajouter fonction pour modifier seulement la value si la key existe deja
+// todo ajouter fonction pour modifier seulement la value si la key existe deja
 
 int	is_equal(char *str)
 {
@@ -86,6 +86,32 @@ int	ft_new_env(t_minishell *minishell, char *str)
 	return (ft_envadd_back(&minishell->env, new), 0);
 }
 
+int	ft_set_change_value(t_minishell *minishell, char *str)
+{
+	int		i;
+	t_env	*copy_env;
+
+	i = 0;
+	while (str[i] != '=')
+		i++;
+	str[i] = 0;
+	copy_env = minishell->env;
+	while (copy_env)
+	{
+		if (ft_strcmp(copy_env->key, str) == 0)
+		{
+			if (ft_change_value(copy_env, str + i + 1))
+				return (1);
+			return (0);
+		}
+		copy_env = copy_env->next;
+	}
+	str[i] = '=';
+	if (ft_new_env(minishell, str))
+		return (ft_dprintf(2, "Error malloc new env\n"), 1);
+	return (0);
+}
+
 int	ft_export(t_minishell *minishell, t_command *command)
 {
 	char	**tab;
@@ -99,10 +125,10 @@ int	ft_export(t_minishell *minishell, t_command *command)
 	{
 		if (!is_correct(tab[i]))
 		{
-			if (ft_new_env(minishell, tab[i]))
-				ft_dprintf(2, "Error malloc new env\n");
+			if (ft_set_change_value(minishell, tab[i]))
+				return (1);
+			i++;
 		}
-		i++;
 	}
 	return (0);
 }

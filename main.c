@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/13 17:33:43 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/14 01:36:17 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ static int	init_exec(t_minishell *minishell)
 	return (0);
 }
 
-void	ft_exec(t_minishell *minishell, char *input)
+int	ft_exec(t_minishell *minishell, char *input)
 {
 	if (init_command(minishell, input))
-		return ;
+		return (1);
 	init_exec(minishell);
 	if (minishell->n_cmd == 1)
 		minishell->exit_status = run_single_cmd(minishell->command, minishell);
 	else
 		minishell->exit_status = run(minishell->command, minishell);
-	return ;
+	return (0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -74,9 +74,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	minishell = (t_minishell){0, 0, 0, 0, 0, 0, 0, {0, 0}, {0, 0}};
-	if (!(isatty(1)))
-		return (0);
-	if (copy_env(env, &minishell))
+	if (!(isatty(1)) || copy_env(env, &minishell))
 		return (0);
 	while (1)
 	{
@@ -87,7 +85,8 @@ int	main(int ac, char **av, char **env)
 		if (!*input)
 			continue ;
 		add_history(input);
-		ft_exec(&minishell, input);
+		if (ft_exec(&minishell, input))
+			continue ;
 		free_all_commands(&minishell);
 		free(input);
 	}

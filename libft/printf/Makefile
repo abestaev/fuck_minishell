@@ -1,7 +1,7 @@
 NAME = libftprintf.a
 SRCS =  ft_printf.c nbrs.c puts.c
 
-CC = gcc
+CC = cc
 
 FLAGS = -Wall -Wextra -Werror -Ofast -march=native
 
