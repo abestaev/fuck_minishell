@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/13 15:54:24 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:34:11 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,9 @@ void					heredoc_signal_handler(int sig);
 int						exit_shell(t_minishell *minishell, int exit_code,
 							bool display);
 void					print_env2(t_env *env);
+
+// free
+void					free_token(t_token *token);
+void					free_all_commands(t_minishell *minishell);
 
 #endif

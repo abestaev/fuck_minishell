@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:00:59 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/11 12:30:35 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:32:54 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	quote_word(char *str, int *i, t_token *token, char c)
 	token->name[k] = 0;
 	token->type = WORD;
 	token->next = 0;
-	fprintf(stderr, "[%s] %s\n", __func__, token->name);
 }
 
 void	ft_lstadd_back(t_token **token, t_token *new)

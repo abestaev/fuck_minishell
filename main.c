@@ -6,39 +6,11 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/13 15:52:45 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:33:43 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_token(t_token *token)
-{
-	t_token	*tmp;
-
-	while (token)
-	{
-		tmp = token->next;
-		free(token->name);
-		free(token);
-		token = tmp;
-	}
-}
-
-void	free_all_commands(t_minishell *minishell)
-{
-	t_command	*tmp;
-
-	while (minishell->command)
-	{
-		if (minishell->command->hd_filename)
-			free(minishell->command->hd_filename);
-		free_command(minishell->command);
-		tmp = minishell->command->next;
-		free(minishell->command);
-		minishell->command = tmp;
-	}
-}
 
 int	init_command(t_minishell *minishell, char *input)
 {
@@ -50,8 +22,6 @@ int	init_command(t_minishell *minishell, char *input)
 	}
 	if (tokenizer(input, minishell))
 		return (printf("error tokenizer\n"), 1);
-	//
-	print_token(minishell->token);
 	if (!init_automate(minishell->token))
 	{
 		free_token(minishell->token);
@@ -84,6 +54,18 @@ static int	init_exec(t_minishell *minishell)
 	return (0);
 }
 
+void	ft_exec(t_minishell *minishell, char *input)
+{
+	if (init_command(minishell, input))
+		return ;
+	init_exec(minishell);
+	if (minishell->n_cmd == 1)
+		minishell->exit_status = run_single_cmd(minishell->command, minishell);
+	else
+		minishell->exit_status = run(minishell->command, minishell);
+	return ;
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
@@ -105,17 +87,19 @@ int	main(int ac, char **av, char **env)
 		if (!*input)
 			continue ;
 		add_history(input);
-		if (init_command(&minishell, input))
-			continue ;
-		init_exec(&minishell);
-		if (minishell.n_cmd == 1)
-			minishell.exit_status = run_single_cmd(minishell.command,
-					&minishell);
-		else
-			minishell.exit_status = run(minishell.command, &minishell);
+		ft_exec(&minishell, input);
 		free_all_commands(&minishell);
 		free(input);
 	}
 	free_env(minishell.env);
 	return (0);
 }
+
+// if (init_command(&minishell, input))
+// 	continue ;
+// init_exec(&minishell);
+// if (minishell.n_cmd == 1)
+// 	minishell.exit_status = run_single_cmd(minishell.command,
+// 			&minishell);
+// else
+// 	minishell.exit_status = run(minishell.command, &minishell);
