@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:23:59 by albestae          #+#    #+#             */
-/*   Updated: 2024/09/03 17:55:18 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/13 17:03:39 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	get_redir(t_command *command)
 	t_command	*tmp;
 
 	tmp = command;
+
 	while (command->redirections)
 	{
 		if (command->redirections->type == SINGLE_OUT
@@ -78,12 +79,10 @@ int	get_redir(t_command *command)
 			get_outfile(command);
 		else if (command->redirections->type == SINGLE_IN)
 			get_infile(command);
-		else if (command->redirections->type == HEREDOC)
-			read_heredoc(command, command->redirections->file);
 		command->redirections = command->redirections->next;
 	}
 	if (command->is_hd)
-		check_heredoc(command);
+		link_heredoc(command);
 	command = tmp;
 	return (EXIT_SUCCESS);
 }

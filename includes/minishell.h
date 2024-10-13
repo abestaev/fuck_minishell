@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/14 01:33:14 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/14 01:49:16 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,11 @@ void					cat_quotes(char *name, char *input, int *j, int *i);
 int						is_delimitor(char *str, int i);
 
 // exec
+int						piping(t_command *command, t_minishell *minishell);
+int						connect_child(t_command *command,
+							t_minishell *minishell);
+int						connect_parent(t_command *command,
+							t_minishell *minishell);
 int						run(t_command *command, t_minishell *minishell);
 int						exec_cmd(t_command *cmd, t_minishell *minishell);
 int						is_builtin(t_command *command);
@@ -174,12 +179,14 @@ int						get_redir(t_command *command);
 // heredoc
 char					*generate_name(void);
 int						read_heredoc(t_command *command, char *delimiter);
-int						check_heredoc(t_command *command);
+int						link_heredoc(t_command *command);
+int						open_heredoc(t_command *command);
 
 // signal
 void					ft_signal(void);
-void					signal_handler_heredoc(int signum);
+void					ft_signal_heredoc(void);
 void					heredoc_signal_handler(int sig);
+void					signal_handler_heredoc(int signum);
 
 // utils
 int						exit_shell(t_minishell *minishell, int exit_code,
