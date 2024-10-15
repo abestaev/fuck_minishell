@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 17:02:56 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:17:24 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,13 +172,19 @@ int							connect_child(t_command *command,
 								t_minishell *minishell);
 int							connect_parent(t_command *command,
 								t_minishell *minishell);
+int							execute_child_process(t_command *command,
+								t_minishell *minishell);
+int							execute_commands(t_command *command,
+								t_minishell *minishell);
 int							run(t_command *command, t_minishell *minishell);
+
 int							exec_cmd(t_command *cmd, t_minishell *minishell);
 int							is_builtin(t_command *command);
 int							exec_builtin(t_command *command,
 								t_minishell *minishell);
 int							run_single_cmd(t_command *command,
 								t_minishell *minishell);
+int							ft_wait(t_minishell *minishell);
 
 // redirection
 int							get_redir(t_command *command);

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 16:56:11 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:19:51 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_wait(t_minishell *minishell);
 
 void	antislash(int sig)
 {
@@ -24,16 +22,8 @@ void	antislash(int sig)
 
 int			get_redir_builtin(t_command *command);
 
-int	run_single_cmd(t_command *command, t_minishell *minishell)
+int	fork_and_execute(t_command *command, t_minishell *minishell)
 {
-	open_heredoc(command, minishell);
-	if (is_builtin(command))
-	{
-		if (get_redir_builtin(command))
-			return (1);
-		return (exec_builtin(command, minishell));
-	}
-	signal(SIGINT, SIG_IGN);
 	command->pid = fork();
 	if (command->pid == -1)
 	{
@@ -52,53 +42,27 @@ int	run_single_cmd(t_command *command, t_minishell *minishell)
 		}
 		exit_shell(minishell, 0, true);
 	}
+	return (0);
+}
+
+int	run_single_cmd(t_command *command, t_minishell *minishell)
+{
+	open_heredoc(command, minishell);
+	if (is_builtin(command))
+	{
+		if (get_redir_builtin(command))
+			return (1);
+		return (exec_builtin(command, minishell));
+	}
+	signal(SIGINT, SIG_IGN);
+	if (fork_and_execute(command, minishell))
+		return (1);
 	signal(SIGQUIT, SIG_IGN);
 	minishell->exit_status = ft_wait(minishell);
 	return (minishell->exit_status);
 }
 
-int	run(t_command *command, t_minishell *minishell)
-{
-	int	last_status;
-	int	i;
-
-	last_status = 0;
-	i = 0;
-	open_heredoc(command, minishell);
-	signal(SIGINT, SIG_IGN);
-	while (command)
-	{
-		piping(command, minishell);
-		command->pid = fork();
-		if (command->pid == -1)
-		{
-			ft_putstr_fd("fork failed\n", 2);
-			return (1);
-		}
-		if (command->pid == 0)
-		{
-			connect_child(command, minishell);
-			get_redir(command);
-			if (is_builtin(command))
-				exit(exec_builtin(command, minishell));
-			else if (exec_cmd(command, minishell))
-			{
-				free_all_commands(minishell);
-				free_env(minishell->env);
-				exit(127);
-			}
-		}
-		else
-			connect_parent(command, minishell);
-		signal(SIGINT, SIG_IGN);
-		command = command->next;
-		i++;
-	}
-	last_status = ft_wait(minishell);
-	return (last_status);
-}
-
-static int	ft_wait(t_minishell *minishell)
+int	ft_wait(t_minishell *minishell)
 {
 	int			last_status;
 	t_command	*tmp;
