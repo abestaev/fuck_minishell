@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:20:52 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 18:21:27 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:27:00 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ int	open_heredoc(t_command *command, t_minishell *mini)
 		while (tmp2)
 		{
 			if (tmp2->type == HEREDOC && g_signal_received != 92)
-			{
 				read_heredoc(tmp, tmp2->file, mini);
-			}
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;
