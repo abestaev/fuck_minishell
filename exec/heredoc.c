@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:23:53 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 05:46:48 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 05:58:23 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,6 @@ char	*generate_name(void)
 	}
 	free(num);
 	return (filename);
-}
-
-static int signal_heredoc(t_command *command)
-{
-	int pid;
-	int status;
-
-	status = 0;
-	
-	pid = fork();
-	if (pid == -1)
-		return (EXIT_FAILURE);
-	if (pid == 0)
-	{
-		read_heredoc(command, command->redirections->file);
-		exit(EXIT_SUCCESS);
-	}
-	while (1)
-    {
-        pid = waitpid(pid, &status, 0);
-            break ;
-    }
-	printf("ici\n");
-	return (WEXITSTATUS(status));
 }
 
 int	read_heredoc(t_command *command, char *delimiter)
@@ -93,7 +69,6 @@ int	read_heredoc(t_command *command, char *delimiter)
 		}
 	}
 	close(fd_hd);
-	printf("FIN\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -129,12 +104,11 @@ int	open_heredoc(t_command *command)
 		{
 			if (tmp2->type == HEREDOC)
 			{
-				signal_heredoc(tmp);
+				read_heredoc(tmp, tmp2->file);
 			}
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;
 	}
-	printf("open_heredoc\n");	
 	return (EXIT_SUCCESS);
 }
