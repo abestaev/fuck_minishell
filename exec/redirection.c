@@ -3,35 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:23:59 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 01:26:15 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:55:47 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_append(t_command *command)
+static int	check_append(t_redir *redir)
 {
 	int	fd;
 
-	if (command->redirections->type == SINGLE_OUT)
-		fd = open(command->redirections->file, O_WRONLY | O_CREAT | O_TRUNC,
-				0644);
+	if (redir->type == SINGLE_OUT)
+		fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
-		fd = open(command->redirections->file, O_WRONLY | O_CREAT | O_APPEND,
-				0644);
+		fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 		perror("open failed\n");
 	return (fd);
 }
 
-int	get_outfile(t_command *command)
+int	get_outfile(t_redir *file)
 {
 	int	fd;
 
-	fd = check_append(command);
+	fd = check_append(file);
 	if (fd == -1)
 	{
 		perror("open failed\n");
@@ -47,10 +45,11 @@ int	get_outfile(t_command *command)
 	return (EXIT_SUCCESS);
 }
 
-int get_infile(t_command *command)
+int	get_infile(t_redir *file)
 {
-	int fd;
-	fd = open(command->redirections->file, O_RDONLY);
+	int	fd;
+
+	fd = open(file->file, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("open failed\n");
@@ -63,26 +62,53 @@ int get_infile(t_command *command)
 		return (EXIT_FAILURE);
 	}
 	close(fd);
-	return (EXIT_SUCCESS);	
+	return (EXIT_SUCCESS);
 }
 
 int	get_redir(t_command *command)
 {
-	t_command	*tmp;
-     
-	tmp = command;
+	t_redir	*tmp;
 
-	while (command->redirections)
+	tmp = command->redirections;
+	while (tmp)
 	{
-		if (command->redirections->type == SINGLE_OUT
-			|| command->redirections->type == DOUBLE_OUT)
-			get_outfile(command);
-		else if (command->redirections->type == SINGLE_IN)
-			get_infile(command);
-		command->redirections = command->redirections->next;
+		if (tmp->type == SINGLE_OUT || tmp->type == DOUBLE_OUT)
+		{
+			if (get_outfile(tmp))
+				exit_shell(command->minishell, 2, false);
+		}
+		else if (tmp->type == SINGLE_IN)
+		{
+			if (get_infile(tmp))
+				exit_shell(command->minishell, 2, false);
+		}
+		tmp = tmp->next;
 	}
 	if (command->is_hd)
 		link_heredoc(command);
-	command = tmp;
+	return (EXIT_SUCCESS);
+}
+
+int	get_redir_builtin(t_command *command)
+{
+	t_redir	*tmp;
+
+	tmp = command->redirections;
+	while (tmp)
+	{
+		if (tmp->type == SINGLE_OUT || tmp->type == DOUBLE_OUT)
+		{
+			if (get_outfile(tmp))
+				return (EXIT_FAILURE);
+		}
+		else if (tmp->type == SINGLE_IN)
+		{
+			if (get_infile(tmp))
+				return (EXIT_FAILURE);
+		}
+		tmp = tmp->next;
+	}
+	if (command->is_hd)
+		link_heredoc(command);
 	return (EXIT_SUCCESS);
 }

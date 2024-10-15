@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:30:24 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/11 22:29:41 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:41:49 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	ft_env_len(char *str, int *i, t_minishell *minishell)
 	char	c;
 	char	*value;
 
+	if (str[*i + 1] == '?')
+	{
+		value = ft_itoa(minishell->exit_status);
+		j = ft_strlen(value);
+		free(value);
+		(*i)++;
+		return (j);
+	}
 	if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '_')
 		return (++(*i), 1);
 	j = ++(*i);

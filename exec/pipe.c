@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 06:58:54 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/09 06:59:23 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:55:01 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	connect_child(t_command *command, t_minishell *minishell)
 
 int	connect_parent(t_command *command, t_minishell *minishell)
 {
+	signal(SIGQUIT, SIG_IGN);
 	if (command->id > 0)
 	{
 		close(minishell->prev_fd[0]);

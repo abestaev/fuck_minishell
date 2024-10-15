@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:31:34 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/14 01:34:07 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:31:56 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int	ft_export(t_minishell *minishell, t_command *command)
 		{
 			if (ft_set_change_value(minishell, tab[i]))
 				return (1);
-			i++;
 		}
+		i++;
 	}
 	return (0);
 }

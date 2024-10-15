@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:25 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/08/28 19:29:23 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:54:14 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char     **str_join_free(char **path);
+static char	**str_join_free(char **path);
 
 char	**get_path(t_env *env)
 {
@@ -35,20 +35,18 @@ char	**get_path(t_env *env)
 	return (path);
 }
 
-static char     **str_join_free(char **path)
+static char	**str_join_free(char **path)
 {
-    size_t  i;
-    char    *tmp;
+	size_t	i;
+	char	*tmp;
 
-    i = 0;
-    while (path[i])
-    {
-        tmp = ft_strjoin(path[i], "/");
-        free(path[i]);
-        path[i] = tmp;
-        i++;
-    }
-    return (path);
+	i = 0;
+	while (path[i])
+	{
+		tmp = ft_strjoin(path[i], "/");
+		free(path[i]);
+		path[i] = tmp;
+		i++;
+	}
+	return (path);
 }
-// path = match_env("path",minishell)
-// r_path = path.value

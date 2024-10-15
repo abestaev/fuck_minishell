@@ -1,0 +1,357 @@
+[33mcommit 9a3eb71e66465aa99a00a70329736741464e85f7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Oct 15 06:01:08 2024 +0200
+
+    heredoc cleaned, ctrl +C still need improvement
+
+[33mcommit 61e7f3eb3d8636aca4b7861b0940e79e4a251f08[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Oct 15 05:55:30 2024 +0200
+
+    test heredoc with fork (not working yet)
+
+[33mcommit 3df21ba2761efd1f923dcde5ef2a3462422247c3[m
+Merge: cbedaf3 8a365a4
+Author: Sinthujan Sitchsapashan <ssitchsa@made-f0Ar12s3.clusters.42paris.fr>
+Date:   Mon Oct 14 01:49:39 2024 +0200
+
+    export_echo
+
+[33mcommit cbedaf39b72131c8c5c5fc1ad619cd145e00a330[m
+Author: Sinthujan Sitchsapashan <ssitchsa@made-f0Ar12s3.clusters.42paris.fr>
+Date:   Mon Oct 14 01:37:42 2024 +0200
+
+    export+echo
+
+[33mcommit 8a365a4ed5be0ce6c7060e4bcecf2d8f84a3f6bd[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Sun Oct 13 21:37:02 2024 +0200
+
+    fix redirection
+
+[33mcommit f8778286779ec0c83155e80c55fdf4b5c6dbac2a[m
+Author: Sinthujan Sitchsapashan <ssitchsa@bess-f2r6s6.clusters.42paris.fr>
+Date:   Sun Oct 13 17:35:33 2024 +0200
+
+    norme
+
+[33mcommit 34a1995fa3365dec87a9ff80f9ba780894e1f102[m
+Author: Sinthujan Sitchsapashan <ssitchsa@bess-f2r6s6.clusters.42paris.fr>
+Date:   Sun Oct 13 16:47:41 2024 +0200
+
+    expand_corrected
+
+[33mcommit 7a58c9bba9f3d3d87871db00840e0fa858394d64[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Oct 8 06:15:10 2024 +0200
+
+    todo: heredoc dans des pipes et expand dans heredoc
+
+[33mcommit 5983f2cc3d45645f97df10f33e70b07ecffb4621[m
+Author: Sinthujan Sitchsapashan <ssitchsa@made-f0Cr8s5.clusters.42paris.fr>
+Date:   Wed Sep 4 19:30:21 2024 +0200
+
+    export_80
+
+[33mcommit 563a61983014045d5616f2bc9533963770c393f8[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Wed Sep 4 17:33:44 2024 +0200
+
+    update
+
+[33mcommit bdfb04a5fe7efc09a9099b741117f0fc2b2acc26[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Wed Sep 4 16:14:17 2024 +0200
+
+    add exit
+
+[33mcommit b9522f8736601533e1a994ef5278b9e9a949717a[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Wed Sep 4 13:44:49 2024 +0200
+
+    add unset
+
+[33mcommit 74f9d8eced21e2752b11d64d079b28a1e166cf83[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Sep 3 20:36:32 2024 +0200
+
+    single cmd bultin leak free
+
+[33mcommit 33d3cdf9177ce8696330e9dd6d0ba9bd76907d96[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Sep 3 18:07:19 2024 +0200
+
+    heredoc done
+
+[33mcommit 3a1bd5f76a6189856962e8f03c2645745c8b23e7[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Sep 3 14:44:01 2024 +0200
+
+    fix leak env
+
+[33mcommit 974f52fab90d4884aa5252dc5dd9234603b121a5[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Sep 3 14:38:40 2024 +0200
+
+    debut heredoc
+
+[33mcommit 5cf40ab6bcfac13ecb1bb1377011202ff5445374[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br6s4.clusters.42paris.fr>
+Date:   Mon Sep 2 21:04:40 2024 +0200
+
+    leaks_from_exec
+
+[33mcommit 87fc3c8754c8e900d0e9782a34f8f6fb0845dd20[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Mon Sep 2 18:20:37 2024 +0200
+
+    add redirection single in
+
+[33mcommit 02b2a5a5ed18c5ec90164c6e7007a7bf740d528b[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Mon Sep 2 18:06:46 2024 +0200
+
+    add redic out double_out
+
+[33mcommit 2e4fa99c68dfdfb74cfda6be9ed038aadb9a671a[m
+Merge: 370e27d 08ed4bb
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Sat Aug 31 18:18:22 2024 +0200
+
+    Merge branch 'main' of https://github.com/abestaev/fuck_minishell
+
+[33mcommit 370e27dfbe642d0d07fff69ea0cc9d0677b6fc1b[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Sat Aug 31 18:15:17 2024 +0200
+
+    pipe
+
+[33mcommit b67f3e851a73aeccdb767e34fcb443ffd4288c97[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Sat Aug 31 18:10:14 2024 +0200
+
+    pipe added //TODO: norm + leak
+
+[33mcommit 08ed4bbe38c194d0ad55ee86a1b51b5d7886de08[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br4s3.clusters.42paris.fr>
+Date:   Fri Aug 30 23:38:27 2024 +0200
+
+    cd_done
+
+[33mcommit 4868c225e3c55d8e942a28c11c04293af7b48e45[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br4s3.clusters.42paris.fr>
+Date:   Fri Aug 30 23:05:37 2024 +0200
+
+    echo_done
+
+[33mcommit 7868ef261af041ada21b6e204527fd5343ddef76[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br4s3.clusters.42paris.fr>
+Date:   Fri Aug 30 20:50:43 2024 +0200
+
+    corrections
+
+[33mcommit 2c07ac1a4a7468b783b52c94091ab291daac11a4[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Fri Aug 30 16:30:57 2024 +0200
+
+    clean error
+
+[33mcommit 5c238c3a6b73064eea8af741433627f7b1e505d4[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Fri Aug 30 16:26:35 2024 +0200
+
+    test
+
+[33mcommit 59970a40eb91b910dc53633011905a18e774cda8[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br3s2.clusters.42paris.fr>
+Date:   Thu Aug 29 20:28:16 2024 +0200
+
+    echo
+
+[33mcommit daa34d638c1969a5f577ef8dcd19c1b63ec7a4ab[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Thu Aug 29 19:47:17 2024 +0200
+
+    update
+
+[33mcommit e9a96706c584a91132eba69c2ff4dff0de40587c[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Wed Aug 28 21:01:27 2024 +0200
+
+    merge
+
+[33mcommit bb8024e3b96b094a8d855ce35bff97920f58cdab[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br6s3.clusters.42paris.fr>
+Date:   Wed Aug 28 20:18:46 2024 +0200
+
+    signal_start
+
+[33mcommit f0e4593f7611470ee708f7b24a44c7eeb402c413[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br7s4.clusters.42paris.fr>
+Date:   Wed Aug 28 00:09:49 2024 +0200
+
+    expand_done
+
+[33mcommit aa978902f3edeebcef77b7034265a43f89d925d0[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br6s5.clusters.42paris.fr>
+Date:   Mon Aug 26 21:28:25 2024 +0200
+
+    env_expand
+
+[33mcommit 37db2758184cc214765a6c976b8c94f525a03e00[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br6s7.clusters.42paris.fr>
+Date:   Sun Aug 25 17:27:41 2024 +0200
+
+    builtin_start+adjustments
+
+[33mcommit b555cbd5421e46831f7ef1409478c9e57937415e[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f4Br2s2.clusters.42paris.fr>
+Date:   Tue Aug 13 21:25:41 2024 +0200
+
+    quotes
+
+[33mcommit 6fa2df6ec3c4add24b64283a8c7e461b9752e0a4[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Thu Jul 25 19:18:03 2024 +0200
+
+    add path **tab
+
+[33mcommit 00377b1f2ce75ebfc561fe919144c325e00b7462[m
+Merge: 4d23c4b 63e9524
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Thu Jul 25 12:58:08 2024 +0200
+
+    Merge branch 'master'
+
+[33mcommit 4d23c4be6d37835fa2361d2acab0bbee3be2a8d4[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Thu Jul 25 12:57:17 2024 +0200
+
+    update gitignore
+
+[33mcommit 63e9524a5400c452ad5106f7ee5962b9b9365d82[m
+Author: albestae <gatsby.hewitt@gmail.com>
+Date:   Thu Jul 25 11:40:20 2024 +0200
+
+    env update
+
+[33mcommit f564088ec09a0a6aba69df4da0bddb8834c6ef06[m
+Author: abestaev <gatsby.hewitt@gmail.com>
+Date:   Tue Jul 23 21:52:20 2024 +0200
+
+    add get_env and print_env
+
+[33mcommit efed5782a060f9c4cf269a7f9ebe0d55714dcd72[m
+Author: Sinthujan Sitchsapashan <ssitchsa@made-f0Ar2s6.clusters.42paris.fr>
+Date:   Mon Jul 22 00:03:34 2024 +0200
+
+    chien bleu
+
+[33mcommit 6d24b11ffa05cfbf72c4b001586f8f3936449f8e[m
+Author: Sinthujan Sitchsapashan <ssitchsa@made-f0Cr10s6.clusters.42paris.fr>
+Date:   Sun Jul 21 17:09:29 2024 +0200
+
+    parsing_v3
+
+[33mcommit 119e5653f1472f0158314876a5454f90be88a871[m
+Author: Sinthujan Sitchsapashan <ssitchsa@made-f0Cr9s5.clusters.42paris.fr>
+Date:   Wed Jul 17 20:12:39 2024 +0200
+
+    parsing_almost_done
+
+[33mcommit 83312ddfe489dc1adfa801f574f47600472dbb58[m
+Author: Sinthujan Sitchsapashan <ssitchsa@made-f0Dr10s9.clusters.42paris.fr>
+Date:   Mon Jun 24 16:16:36 2024 +0200
+
+    commander_begin
+
+[33mcommit 4e2a80a362f164e2e1a9a1930eaf3f8288ea2aa6[m
+Author: ssinthujan <sitchsapashan.sinthujan@gmail.com>
+Date:   Sat Jun 22 00:10:14 2024 +0200
+
+    final_automate
+
+[33mcommit 8a618be65c7f543f8c005026b39e7abaec0ab13b[m
+Author: Sinthujan Sitchsapashan <ssitchsa@paul-f3Ar1s2.clusters.42paris.fr>
+Date:   Wed Jun 19 21:20:45 2024 +0200
+
+    automate_start
+
+[33mcommit 97e1e44302b9b762dd061fa2c6966af11f535d75[m
+Merge: 41ba383 4de1a3a
+Author: Sinthujan Sitchsapashan <ssitchsa@bess-f2r6s4.clusters.42paris.fr>
+Date:   Wed Jun 19 19:58:17 2024 +0200
+
+    Merge branch 'main' of github.com:abestaev/fuck_minishell
+
+[33mcommit 41ba38393f323bda936234442edee1eeab741790[m
+Author: Sinthujan Sitchsapashan <ssitchsa@bess-f2r6s4.clusters.42paris.fr>
+Date:   Wed Jun 19 19:56:13 2024 +0200
+
+    final_tokenizer
+
+[33mcommit 4de1a3a46e9180e050b32df830c57fe24c255598[m
+Author: SSinthujan <104198097+SSinthujan@users.noreply.github.com>
+Date:   Wed Jun 19 00:32:12 2024 +0200
+
+    Delete minishell.h
+
+[33mcommit cd869532e25d11762fe4ca2e10f2ace8324ddf23[m
+Author: SSinthujan <104198097+SSinthujan@users.noreply.github.com>
+Date:   Wed Jun 19 00:31:55 2024 +0200
+
+    Delete parsing.c
+
+[33mcommit 7cf01b6bfff6aedddec969e043ac6a2c4ef5d2a1[m
+Author: Sinthujan Sitchsapashan <ssitchsa@bess-f2r6s2.clusters.42paris.fr>
+Date:   Tue Jun 18 16:39:15 2024 +0200
+
+    tokenization
+
+[33mcommit 262ae59a9ee6d2844722ef7ae2c2d162924a4991[m
+Author: Sinthujan Sitchsapashan <ssitchsa@bess-f2r3s14.clusters.42paris.fr>
+Date:   Mon Jun 17 23:47:15 2024 +0200
+
+    started parsing
+
+[33mcommit 96abf3cbdc911a565cd5086bcdee89c369f0212a[m
+Author: Sinthujan Sitchsapashan <ssitchsa@bess-f2r4s15.clusters.42paris.fr>
+Date:   Wed Jun 12 14:44:08 2024 +0200
+
+    Beginning of the project
+
+[33mcommit 650f55833e14384666869cbe7a0636d6c913277d[m
+Author: SSinthujan <104198097+SSinthujan@users.noreply.github.com>
+Date:   Fri May 31 03:57:15 2024 +0200
+
+    Update README.md
+
+[33mcommit e60ea0dd3355cf8e8fe1a236582212213d18f4f2[m
+Author: SSinthujan <104198097+SSinthujan@users.noreply.github.com>
+Date:   Fri May 31 03:56:42 2024 +0200
+
+    Update README.md
+
+[33mcommit 60a8d79af91c586fdee71685ae346766c9872429[m
+Author: SSinthujan <104198097+SSinthujan@users.noreply.github.com>
+Date:   Fri May 31 01:33:55 2024 +0200
+
+    Delete roadmap_exec
+
+[33mcommit 4c8a852f47c496171ae171b1294fab371f457af5[m
+Author: SSinthujan <104198097+SSinthujan@users.noreply.github.com>
+Date:   Fri May 31 01:32:20 2024 +0200
+
+    Update README.md
+
+[33mcommit adea6fb555f39447fc3be6da1cb8f8d342307b4a[m
+Author: SSinthujan <104198097+SSinthujan@users.noreply.github.com>
+Date:   Fri May 31 01:29:17 2024 +0200
+
+    Create roadmap_exec
+
+[33mcommit 03aa7c7a085d4e99af2344baf8a3b4aa4ae517b9[m
+Author: abestaev <59179844+abestaev@users.noreply.github.com>
+Date:   Sat Apr 6 17:08:45 2024 +0200
+
+    Initial commit

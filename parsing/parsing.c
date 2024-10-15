@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:00:59 by pc                #+#    #+#             */
-/*   Updated: 2024/10/13 17:32:45 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:06:24 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	parsing(t_minishell *minishell)
 		command->arguments = NULL;
 		command->next = NULL;
 		command->command = NULL;
+		command->minishell = minishell;
 		while (token && token->type != PIPE)
 		{
 			if (process_parsing(command, &token, minishell))

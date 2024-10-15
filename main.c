@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 05:54:48 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:53:28 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,22 @@ int	ft_exec(t_minishell *minishell, char *input)
 		minishell->exit_status = run_single_cmd(minishell->command, minishell);
 	else
 		minishell->exit_status = run(minishell->command, minishell);
+	signal(SIGINT, &signal_handler);
 	return (0);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
-	t_minishell	minishell;
+	t_minishell	*minishell;
 
 	(void)ac;
 	(void)av;
-	minishell = (t_minishell){0};
-	if (!(isatty(1)) || copy_env(env, &minishell))
+	minishell = starton();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &signal_handler);
+	if (!(isatty(1)) || copy_env(env, minishell))
 		return (0);
-	//todo, ajouter conditions g_int
 	while (1)
 	{
 		ft_signal();
@@ -86,20 +88,10 @@ int	main(int ac, char **av, char **env)
 		if (!*input)
 			continue ;
 		add_history(input);
-		if (ft_exec(&minishell, input))
+		if (ft_exec(minishell, input))
 			continue ;
-		free_all_commands(&minishell);
+		free_all_commands(minishell);
 		free(input);
 	}
-	free_env(minishell.env);
-	return (0);
+	return (free_env(minishell->env), 0);
 }
-
-// if (init_command(&minishell, input))
-// 	continue ;
-// init_exec(&minishell);
-// if (minishell.n_cmd == 1)
-// 	minishell.exit_status = run_single_cmd(minishell.command,
-// 			&minishell);
-// else
-// 	minishell.exit_status = run(minishell.command, &minishell);

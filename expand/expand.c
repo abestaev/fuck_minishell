@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:14:03 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/11 22:30:50 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:00:41 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,20 @@ void	ft_env_expand(char *str, char *res, int *i, t_minishell *minishell)
 	ft_strncat(res, value, ft_strlen(value));
 }
 
-void	ft_expand_str(char *str, char *res, int *i, t_minishell *minishell)
+int	ft_expand_str(char *str, char *res, int *i, t_minishell *minishell)
 {
 	char	c;
 	char	*value;
 	int		start;
 
-	if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '_')
+	if (str[*i + 1] == '?')
 	{
-		ft_strncat(res, str + (*i)++, 1);
-		return ;
+		value = ft_itoa(minishell->exit_status);
+		(*i) += 2;
+		return (ft_strncat(res, value, ft_strlen(value)), free(value), 0);
 	}
+	if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '_')
+		return (ft_strncat(res, str + (*i)++, 1), 1);
 	start = ++(*i);
 	while (ft_isalpha(str[*i]) || str[*i] == '_')
 		(*i)++;
@@ -89,9 +92,9 @@ void	ft_expand_str(char *str, char *res, int *i, t_minishell *minishell)
 	value = match_env(str + start, minishell);
 	str[*i] = c;
 	if (!value)
-		return ;
+		return (0);
 	ft_strncat(res, value, ft_strlen(value));
-	return ;
+	return (0);
 }
 
 char	*ft_expand(char *str, t_minishell *minishell)
