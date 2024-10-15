@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:23:59 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/13 17:03:39 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 01:26:15 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int get_infile(t_command *command)
 int	get_redir(t_command *command)
 {
 	t_command	*tmp;
-
+     
 	tmp = command;
 
 	while (command->redirections)

@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/10 04:04:48 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/14 04:45:20 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_wait(t_minishell *minishell);
 
 int	run_single_cmd(t_command *command, t_minishell *minishell)
 {
-	open_heredoc(command);
+	open_heredoc(command, minishell);
 	if (is_builtin(command))
 	{
 		get_redir(command);
@@ -49,7 +49,7 @@ int	run(t_command *command, t_minishell *minishell)
 
 	last_status = 0;
 	i = 0;
-	open_heredoc(command);
+	open_heredoc(command, minishell);
 	while (command)
 	{
 		piping(command, minishell);

@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:23:53 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/13 21:35:22 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 05:46:48 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,37 @@ char	*generate_name(void)
 	free(num);
 	return (filename);
 }
-// to do deplacer la gestion du ctrl c ailleurs
+
+static int signal_heredoc(t_command *command)
+{
+	int pid;
+	int status;
+
+	status = 0;
+	
+	pid = fork();
+	if (pid == -1)
+		return (EXIT_FAILURE);
+	if (pid == 0)
+	{
+		read_heredoc(command, command->redirections->file);
+		exit(EXIT_SUCCESS);
+	}
+	while (1)
+    {
+        pid = waitpid(pid, &status, 0);
+            break ;
+    }
+	printf("ici\n");
+	return (WEXITSTATUS(status));
+}
+
 int	read_heredoc(t_command *command, char *delimiter)
 {
 	int					fd_hd;
 	char				*line;
 
 	line = NULL;
-		
-	
-	ft_signal_heredoc();
 	command->is_hd = TRUE;
 	if (command->hd_filename)
 	{
@@ -55,14 +76,8 @@ int	read_heredoc(t_command *command, char *delimiter)
 	fd_hd = open(command->hd_filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
-		if (g_signal_received)
-		{
-			close(fd_hd);
-			unlink(command->hd_filename);
-			free(command->hd_filename);
-			ft_signal();
-			return (EXIT_SUCCESS);
-		}
+		signal(SIGINT, ft_signal_heredoc);
+		signal(SIGQUIT, SIG_IGN);
 		line = readline("\033[3;34mheredoc> \033[0m");
 		if (!line)
 			break ;
@@ -78,6 +93,7 @@ int	read_heredoc(t_command *command, char *delimiter)
 		}
 	}
 	close(fd_hd);
+	printf("FIN\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -112,10 +128,13 @@ int	open_heredoc(t_command *command)
 		while (tmp2)
 		{
 			if (tmp2->type == HEREDOC)
-				read_heredoc(tmp, tmp2->file);
+			{
+				signal_heredoc(tmp);
+			}
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;
 	}
+	printf("open_heredoc\n");	
 	return (EXIT_SUCCESS);
 }

@@ -6,46 +6,37 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:49:13 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/13 21:35:12 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 05:41:58 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		g_signal_received = 0;
+int g_signal_received = 0;
 
-void	handle_sigint(int sig)
+void signal_handler(int sig)
 {
-	(void)sig;
-	g_signal_received = 1;
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	if (isatty(0))
-		ft_putstr_fd("\n", 1);
-	rl_redisplay();
+    if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		printf("\n");
+		rl_redisplay();
+	}
 }
 
-void	heredoc_signal_handler(int sig)
+void ft_signal_heredoc(int sig)
 {
-	(void)sig;
-	g_signal_received = 1;
-    write(STDOUT_FILENO, "\n", 1);
-	close(STDIN_FILENO);
-	rl_replace_line("", 0);
-    rl_on_new_line();
-	if (isatty(0))
-	ft_putstr_fd("\n", 1);
-    rl_redisplay();
+    if (sig == SIGINT)
+	{
+		rl_replace_line("", 0);
+		ft_dprintf(STDERR_FILENO, "\n");
+		exit(130);
+	}
 }
 
-void 	ft_signal_heredoc(void)
+void ft_signal(void)
 {
-	signal(SIGINT, heredoc_signal_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	ft_signal(void)
-{
-	signal(SIGINT, handle_sigint);
+    signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

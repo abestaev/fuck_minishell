@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/14 01:49:16 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/15 05:55:00 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,8 @@ int						open_heredoc(t_command *command);
 
 // signal
 void					ft_signal(void);
-void					ft_signal_heredoc(void);
-void					heredoc_signal_handler(int sig);
-void					signal_handler_heredoc(int signum);
+void					ft_signal_heredoc(int sig);
+void					signal_handler(int sig);
 
 // utils
 int						exit_shell(t_minishell *minishell, int exit_code,
