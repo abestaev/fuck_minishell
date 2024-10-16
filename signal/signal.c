@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 18:49:13 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 18:28:03 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:11:19 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,20 @@ void	ft_signal_heredoc(int sig)
 	}
 }
 
-void	ft_signal(void)
+void	ft_signal(t_minishell *shell)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
+	if (shell->old_fd[0])
+	{
+		dup2(shell->old_fd[0], 0);
+		close(shell->old_fd[0]);
+	}
+	if (shell->old_fd[1])
+	{
+		dup2(shell->old_fd[1], 1);
+		close(shell->old_fd[1]);
+	}
+	shell->old_fd[0] = dup(0);
+	shell->old_fd[1] = dup(1);
 }

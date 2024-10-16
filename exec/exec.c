@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 19:48:48 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:13:24 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ int	fork_and_execute(t_command *command, t_minishell *minishell)
 	{
 		signal(SIGINT, &signal_handler);
 		signal(SIGQUIT, &antislash);
+		close(minishell->old_fd[0]);
+		close(minishell->old_fd[1]);
 		get_redir(command);
 		if (exec_cmd(command, minishell))
 		{
 			minishell->exit_status = 127;
 			exit_shell(minishell, 127, false);
 		}
-		exit_shell(minishell, 0, true);
+		exit_shell(minishell, 0, false);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 16:53:28 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:02:25 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int	main(int ac, char **av, char **env)
 	minishell = starton();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &signal_handler);
-	if (!(isatty(1)) || copy_env(env, minishell))
+	if (!(isatty(0)) || copy_env(env, minishell))
 		return (0);
 	while (1)
 	{
-		ft_signal();
+		ft_signal(minishell);
 		input = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (!input)
 			break ;
@@ -93,5 +93,5 @@ int	main(int ac, char **av, char **env)
 		free_all_commands(minishell);
 		free(input);
 	}
-	return (free_env(minishell->env), 0);
+	return (close(minishell->old_fd[0]), close(minishell->old_fd[1]), free_env(minishell->env), 0);
 }

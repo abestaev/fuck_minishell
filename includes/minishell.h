@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 18:17:24 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:58:36 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_minishell
 	int						n_cmd;
 	int						prev_fd[2];
 	int						fd[2];
+	int						old_fd[2];
 }							t_minishell;
 
 // parsing
@@ -197,7 +198,7 @@ int							link_heredoc(t_command *command);
 int							open_heredoc(t_command *command, t_minishell *mini);
 
 // signal
-void						ft_signal(void);
+void						ft_signal(t_minishell *shell);
 void						ft_signal_heredoc(int sig);
 void						signal_handler(int sig);
 

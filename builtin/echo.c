@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:56:18 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/16 15:31:31 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:53:54 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,12 @@ int	ft_is_n_flag(char *str)
 {
 	int	i;
 
-	if (str[0] != '-')
+	if (*str != '-')
 		return (0);
 	i = 1;
-	while (str[i])
-	{
-		if (str[i] != 'n' || str[i] != 'e')
-			return (0);
-		i++;
-	}
-	return (1);
+	while (str[i] == 'n' || str[i] == 'e')
+		++i;
+	return (!str[i]);
 }
 
 int	ft_flag(char **tab)
