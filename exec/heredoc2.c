@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:20:52 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 18:27:00 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:47:16 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ int	open_heredoc(t_command *command, t_minishell *mini)
 		}
 		tmp = tmp->next;
 	}
-	g_signal_received = 0;
 	return (EXIT_SUCCESS);
 }

@@ -6,28 +6,38 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:56:18 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/14 01:12:13 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:31:31 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// todo	ori fraude pour les fd 1
+//todo changer le fd si le echo est dans une redirection
+
+int	ft_is_n_flag(char *str)
+{
+	int	i;
+
+	if (str[0] != '-')
+		return (0);
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] != 'n' || str[i] != 'e')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	ft_flag(char **tab)
 {
 	int	i;
 
 	i = 1;
-	if (!tab[i] || tab[i][0] != '-')
-		return (0);
-	i = 1;
-	while (tab[1][i])
-	{
-		if (tab[1][i] != 'n')
-			return (0);
+	while (tab[i] && ft_is_n_flag(tab[i]))
 		i++;
-	}
-	return (1);
+	return (i - 1);
 }
 
 int	ft_echo(t_command *current)
@@ -45,7 +55,7 @@ int	ft_echo(t_command *current)
 	}
 	flag = ft_flag(tab);
 	if (flag)
-		i++;
+		i += flag;
 	while (tab[i])
 	{
 		ft_putstr_fd(tab[i], 1);
