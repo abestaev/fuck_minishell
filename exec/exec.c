@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/16 18:13:24 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:21:09 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 		if (execve(cmd->command, cmd->arguments, env))
 			return (free_tab(path), free_tab(env), 1);
 	i = 0;
-	while (path[i])
+	while (path && path[i])
 	{
 		abs_path = ft_strjoin(path[i], cmd->command);
 		execve(abs_path, cmd->arguments, env);

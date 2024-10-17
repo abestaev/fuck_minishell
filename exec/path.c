@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:25 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 16:54:14 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:20:27 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	**str_join_free(char **path)
 	char	*tmp;
 
 	i = 0;
-	while (path[i])
+	while (path && path[i])
 	{
 		tmp = ft_strjoin(path[i], "/");
 		free(path[i]);

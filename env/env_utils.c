@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 19:53:35 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/16 18:01:53 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:20:18 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (tab == NULL)
+		return ;
 	while (tab[i])
 	{
 		free(tab[i]);
