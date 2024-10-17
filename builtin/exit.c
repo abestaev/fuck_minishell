@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 23:38:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/16 16:34:29 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:27:15 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_onlydigit(char *str)
 
 int	ft_exit(t_minishell *minishell, t_command *command)
 {
-	if (get_argc(command) == 1)
+	if (get_argc(command) == 1 && minishell->n_cmd == 1)
 		exit_shell(minishell, 0, true);
 	if (get_argc(command) > 2)
 	{
@@ -80,7 +80,10 @@ int	ft_exit(t_minishell *minishell, t_command *command)
 		exit_shell(minishell, 2, false);
 	}
 	minishell->exit_status = (ft_atoi(command->arguments[1]) % 256);
-	exit_shell(minishell, 0, true);
+	if (minishell->n_cmd == 1)
+		exit_shell(minishell, 0, true);
+	else
+		exit_shell(minishell, 0, false);
 	return (0);
 }
 

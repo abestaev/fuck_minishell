@@ -23,6 +23,3 @@ quand exit : garder le code status de la derniere commande si pas dargument
 
 ctrl c = code a 130
 ctrl c commande = code a 130
-
-echo exit | exit
-ne doit rien afficher (regarder les forks)
