@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:23:59 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/17 15:26:54 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:12:41 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,16 @@ int	get_infile(t_redir *file)
 {
 	int	fd;
 
+	if (access(file->file, F_OK) == -1)
+	{
+		ft_dprintf(2, "minishell: %s: No such file or directory\n", file->file);
+		return (EXIT_FAILURE);
+	}
 	fd = open(file->file, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("open failed\n");
+		ft_dprintf(2, "minishell : %s ", file->file);
+		perror("");
 		return (EXIT_FAILURE);
 	}
 	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
