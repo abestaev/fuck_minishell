@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/17 16:18:32 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:47:56 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	ft_exec(t_minishell *minishell, char *input)
 		minishell->exit_status = run_single_cmd(minishell->command, minishell);
 	else
 		minishell->exit_status = run(minishell->command, minishell);
-	signal(SIGINT, &signal_handler);
 	return (0);
 }
 
@@ -75,14 +74,13 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	minishell = starton();
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &signal_handler);
 	if (!(isatty(0)) || copy_env(env, minishell))
 		return (0);
 	while (1)
 	{
 		ft_signal(minishell);
 		input = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
+		signal(SIGINT, SIG_IGN);
 		if (g_signal_received)
 		{
 			if (g_signal_received == SIGINT)

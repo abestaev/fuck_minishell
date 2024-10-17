@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:04:08 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/17 17:01:37 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:50:49 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	execute_child_process(t_command *command, t_minishell *minishell)
 	}
 	if (command->pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		ft_close(&minishell->old_fd[0]);
 		ft_close(&minishell->old_fd[1]);
 		connect_child(command, minishell);
@@ -42,7 +44,6 @@ int	execute_commands(t_command *command, t_minishell *minishell)
 		piping(command, minishell);
 		if (execute_child_process(command, minishell))
 			return (1);
-		signal(SIGINT, SIG_IGN);
 		command = command->next;
 	}
 	return (0);
@@ -54,7 +55,6 @@ int	run(t_command *command, t_minishell *minishell)
 
 	if (open_heredoc(command, minishell))
 		return (130);
-	signal(SIGINT, SIG_IGN);
 	if (execute_commands(command, minishell))
 		return (1);
 	last_status = ft_wait(minishell);

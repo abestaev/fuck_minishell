@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 06:58:54 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/17 15:26:31 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:48:37 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	connect_child(t_command *command, t_minishell *minishell)
 
 int	connect_parent(t_command *command, t_minishell *minishell)
 {
-	signal(SIGQUIT, SIG_IGN);
 	if (command->id > 0)
 	{
 		ft_close(&minishell->prev_fd[0]);

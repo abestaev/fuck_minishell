@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:20:52 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/17 16:37:13 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:48:29 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	open_heredoc(t_command *command, t_minishell *mini)
 	t_redir		*tmp2;
 
 	tmp = command;
-	signal(SIGINT, SIG_IGN);
 	while (tmp)
 	{
 		tmp2 = tmp->redirections;
