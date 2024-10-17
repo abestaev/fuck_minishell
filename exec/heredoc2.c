@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:20:52 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 19:47:16 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:37:13 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	link_heredoc(t_command *command)
 	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
 	{
 		perror("dup2 failed\n");
-		close(fd);
+		ft_close(&fd);
 		return (EXIT_FAILURE);
 	}
-	close(fd);
+	ft_close(&fd);
 	free(command->hd_filename);
 	command->hd_filename = NULL;
 	return (fd);
@@ -40,13 +40,14 @@ int	open_heredoc(t_command *command, t_minishell *mini)
 	t_redir		*tmp2;
 
 	tmp = command;
+	signal(SIGINT, SIG_IGN);
 	while (tmp)
 	{
 		tmp2 = tmp->redirections;
 		while (tmp2)
 		{
-			if (tmp2->type == HEREDOC && g_signal_received != 92)
-				read_heredoc(tmp, tmp2->file, mini);
+			if (tmp2->type == HEREDOC && read_heredoc(tmp, tmp2->file, mini))
+				return (EXIT_FAILURE);
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;

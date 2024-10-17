@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:23:59 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 16:55:47 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:26:54 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	get_outfile(t_redir *file)
 	if (fd > 0 && dup2(fd, STDOUT_FILENO) < 0)
 	{
 		perror("dup2 failed\n");
-		close(fd);
+		ft_close(&fd);
 		return (EXIT_FAILURE);
 	}
-	close(fd);
+	ft_close(&fd);
 	return (EXIT_SUCCESS);
 }
 
@@ -58,10 +58,10 @@ int	get_infile(t_redir *file)
 	if (fd > 0 && dup2(fd, STDIN_FILENO) < 0)
 	{
 		perror("dup2 failed\n");
-		close(fd);
+		ft_close(&fd);
 		return (EXIT_FAILURE);
 	}
-	close(fd);
+	ft_close(&fd);
 	return (EXIT_SUCCESS);
 }
 
@@ -75,12 +75,12 @@ int	get_redir(t_command *command)
 		if (tmp->type == SINGLE_OUT || tmp->type == DOUBLE_OUT)
 		{
 			if (get_outfile(tmp))
-				exit_shell(command->minishell, 2, false);
+				exit_shell(command->minishell, 2);
 		}
 		else if (tmp->type == SINGLE_IN)
 		{
 			if (get_infile(tmp))
-				exit_shell(command->minishell, 2, false);
+				exit_shell(command->minishell, 2);
 		}
 		tmp = tmp->next;
 	}

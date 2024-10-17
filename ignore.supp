@@ -16,3 +16,15 @@
     ...
     fun:add_history
 }
+{
+    leak usrbin
+    Memcheck:Leak
+    ...
+    obj:/usr/bin/*
+}
+{
+    leak binbin
+    Memcheck:Leak
+    ...
+    obj:/bin/*
+}

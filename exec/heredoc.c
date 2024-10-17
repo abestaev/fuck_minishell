@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:23:53 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 18:21:33 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:31:55 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*generate_name(void)
 	return (filename);
 }
 
-void	read_lines(int fd_hd, char *delimiter)
+void	read_lines(int fd_hd, char *delimiter, t_minishell *mini)
 {
 	char	*line;
 
@@ -45,6 +45,11 @@ void	read_lines(int fd_hd, char *delimiter)
 		signal(SIGINT, ft_signal_heredoc);
 		signal(SIGQUIT, SIG_IGN);
 		line = readline("\033[3;34mheredoc> \033[0m");
+		if (g_signal_received)
+		{
+			ft_close(&fd_hd);
+			exit_shell(mini, 1);
+		}
 		if (!line)
 			break ;
 		if (ft_strcmp(line, delimiter) == 0)
@@ -63,9 +68,9 @@ void	handle_heredoc_child(t_command *command, char *delimiter,
 	int	fd_hd;
 
 	fd_hd = open(command->hd_filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	read_lines(fd_hd, delimiter);
-	close(fd_hd);
-	exit_shell(mini, 0, false);
+	read_lines(fd_hd, delimiter, mini);
+	ft_close(&fd_hd);
+	exit_shell(mini, 0);
 }
 
 void	prepare_heredoc_file(t_command *command)
@@ -81,14 +86,15 @@ void	prepare_heredoc_file(t_command *command)
 int	read_heredoc(t_command *command, char *delimiter, t_minishell *mini)
 {
 	int	pid;
+	int	status;
 
 	command->is_hd = TRUE;
 	prepare_heredoc_file(command);
 	pid = fork();
 	if (pid == 0)
 		handle_heredoc_child(command, delimiter, mini);
-	waitpid(pid, &g_signal_received, 0);
-	if (WIFEXITED(g_signal_received))
-		g_signal_received = WEXITSTATUS(g_signal_received);
-	return (EXIT_SUCCESS);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		status = WEXITSTATUS(status);
+	return (status);
 }

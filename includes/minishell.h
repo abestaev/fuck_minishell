@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:01:11 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/16 17:58:36 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:49:24 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
+# include <sys/stat.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
-extern int					g_signal_received;
+extern volatile sig_atomic_t					g_signal_received;
 
 typedef struct s_minishell	t_minishell;
 
@@ -189,6 +191,7 @@ int							ft_wait(t_minishell *minishell);
 
 // redirection
 int							get_redir(t_command *command);
+void						ft_close(int *fd);
 
 // heredoc
 char						*generate_name(void);
@@ -203,8 +206,7 @@ void						ft_signal_heredoc(int sig);
 void						signal_handler(int sig);
 
 // utils
-int							exit_shell(t_minishell *minishell, int exit_code,
-								bool display);
+int							exit_shell(t_minishell *minishell, int exit_code);
 void						print_env2(t_env *env);
 
 // free

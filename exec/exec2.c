@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:04:08 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/17 13:30:16 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:01:37 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,13 @@ int	execute_child_process(t_command *command, t_minishell *minishell)
 	}
 	if (command->pid == 0)
 	{
+		ft_close(&minishell->old_fd[0]);
+		ft_close(&minishell->old_fd[1]);
 		connect_child(command, minishell);
 		get_redir(command);
 		if (is_builtin(command))
-			exit(exec_builtin(command, minishell));
-		else if (exec_cmd(command, minishell))
-		{
-			ft_printf("%s: command not found\n", command->command);
-			free_all_commands(minishell);
-			free_env(minishell->env);
-			exit(127);
-		}
+			exit_shell(minishell, exec_builtin(command, minishell));
+		exec_cmd(command, minishell);
 	}
 	else
 		connect_parent(command, minishell);
@@ -56,7 +52,8 @@ int	run(t_command *command, t_minishell *minishell)
 {
 	int	last_status;
 
-	open_heredoc(command, minishell);
+	if (open_heredoc(command, minishell))
+		return (130);
 	signal(SIGINT, SIG_IGN);
 	if (execute_commands(command, minishell))
 		return (1);

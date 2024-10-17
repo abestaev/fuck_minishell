@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/16 18:02:25 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:18:32 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ int	main(int ac, char **av, char **env)
 	{
 		ft_signal(minishell);
 		input = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
+		if (g_signal_received)
+		{
+			if (g_signal_received == SIGINT)
+				minishell->exit_status = 130;
+			g_signal_received = 0;
+		}
 		if (!input)
 			break ;
 		if (!*input)
@@ -93,5 +99,5 @@ int	main(int ac, char **av, char **env)
 		free_all_commands(minishell);
 		free(input);
 	}
-	return (close(minishell->old_fd[0]), close(minishell->old_fd[1]), free_env(minishell->env), 0);
+	return (ft_close(&minishell->old_fd[0]), ft_close(&minishell->old_fd[1]), free_env(minishell->env), 0);
 }

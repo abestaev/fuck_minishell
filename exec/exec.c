@@ -3,24 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/17 13:33:06 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:02:24 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	antislash(int sig)
-{
-	if (sig == SIGQUIT)
-		exit(131);
-	if (sig == SIGINT)
-		exit(130);
-}
-
-int			get_redir_builtin(t_command *command);
+int	get_redir_builtin(t_command *command);
 
 int	fork_and_execute(t_command *command, t_minishell *minishell)
 {
@@ -32,27 +24,18 @@ int	fork_and_execute(t_command *command, t_minishell *minishell)
 	}
 	if (command->pid == 0)
 	{
-		signal(SIGINT, &signal_handler);
-		signal(SIGQUIT, &antislash);
-		close(minishell->old_fd[0]);
-		close(minishell->old_fd[1]);
+		ft_close(&minishell->old_fd[0]);
+		ft_close(&minishell->old_fd[1]);
 		get_redir(command);
-		if (exec_cmd(command, minishell))
-		{
-			ft_printf("%s: command not found\n", command->command);
-			minishell->exit_status = 127;
-			exit_shell(minishell, 127, false);
-		}
-		exit_shell(minishell, 0, false);
+		exec_cmd(command, minishell);
 	}
 	return (0);
 }
 
 int	run_single_cmd(t_command *command, t_minishell *minishell)
 {
-	open_heredoc(command, minishell);
-	if (g_signal_received == 92)
-		return 0;
+	if (open_heredoc(command, minishell))
+		return (130);
 	g_signal_received = 0;
 	if (is_builtin(command))
 	{
@@ -84,9 +67,43 @@ int	ft_wait(t_minishell *minishell)
 		}
 		if (WIFEXITED(minishell->exit_status))
 			minishell->exit_status = WEXITSTATUS(minishell->exit_status);
+		if (WIFSIGNALED(minishell->exit_status))
+		{
+			if (WTERMSIG(minishell->exit_status) == SIGINT)
+				minishell->exit_status = 130;
+			if (WTERMSIG(minishell->exit_status) == SIGQUIT)
+			{
+				ft_dprintf(2, "Quit (core dumped)\n");
+				minishell->exit_status = 131;
+			}
+		}
 		tmp = tmp->next;
 	}
 	return (minishell->exit_status);
+}
+
+int	exec_path_cmd(t_command *cmd, t_minishell *minishell, char **env,
+		char **path)
+{
+	struct stat	stats;
+
+	if (access(cmd->command, F_OK))
+	{
+		ft_dprintf(2, "minishell: %s: No such file or directory\n", cmd->command);
+		return (free_tab(path), free_tab(env), exit_shell(minishell, 127), 1);
+	}
+	if (!stat(cmd->command, &stats) && S_ISDIR(stats.st_mode))
+	{
+		ft_dprintf(2, "minishell: %s: Is a directory\n", cmd->command);
+		return (free_tab(path), free_tab(env), exit_shell(minishell, 126), 1);
+	}
+	if (access(cmd->command, R_OK) || access(cmd->command, X_OK))
+	{
+		ft_dprintf(2, "minishell: %s: Permission denied\n", cmd->command);
+		return (free_tab(path), free_tab(env), exit_shell(minishell, 126), 1);
+	}
+	execve(cmd->command, cmd->arguments, env);
+	return (free_tab(path), free_tab(env), exit_shell(minishell, 126), 1);
 }
 
 int	exec_cmd(t_command *cmd, t_minishell *minishell)
@@ -102,11 +119,7 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 	path = get_path(minishell->env);
 	env = env_to_tab(minishell->env);
 	if (ft_strchr(cmd->command, '/'))
-		if (execve(cmd->command, cmd->arguments, env))
-		{
-			ft_printf("%s: command not found\n", cmd->command);
-			return (free_tab(path), free_tab(env), 1);
-		}
+		exec_path_cmd(cmd, minishell, env, path);
 	i = 0;
 	while (path && path[i])
 	{
@@ -115,5 +128,6 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 		free(abs_path);
 		i++;
 	}
-	return (free_tab(path), free_tab(env), 1);
+	ft_printf("minishell: %s: command not found\n", cmd->command);
+	return (free_tab(path), free_tab(env), exit_shell(minishell, 127), 1);
 }
