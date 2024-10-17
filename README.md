@@ -9,11 +9,6 @@ rouge parsing / noir exec
 
 ---
 
-rajouter : tous les messages d'erreur
-
-exemple : 
-	waidojiaowjioaw : command not found
-	./awdawdawdawdawaw : file not found
-	/aiowjdioawadwwdaw/awdawdaw : file not found
-	./test (pas read ou pas execute perm dessus) : permission denied
+$US echo hi
+ignorer le $US est executer echo hi
 

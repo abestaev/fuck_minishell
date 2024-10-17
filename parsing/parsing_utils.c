@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:40:30 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 16:52:38 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:29:14 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,27 @@ int	add_redirection(t_command *command, t_token *token, t_minishell *minishell)
 int	add_arguments(t_command *command, t_token *token, t_minishell *minishell)
 {
 	char	**new_arguments;
+	char	*expanded;
 	int		i;
 
+	expanded = ft_expand(token->name, minishell);
+	if (!expanded || !*expanded)
+		return (free(expanded), !expanded);
 	i = 0;
-	while (command->arguments && command->arguments[i] != NULL)
+	while (command->arguments && command->arguments[i])
 		i++;
 	new_arguments = ft_calloc((sizeof(char *)), (i + 2));
 	if (!new_arguments)
 		return (1);
 	if (!command->arguments)
-		new_arguments[0] = ft_expand(token->name, minishell);
+		new_arguments[0] = expanded;
 	else
 	{
 		i = -1;
 		while (command->arguments[++i])
 			new_arguments[i] = command->arguments[i];
-		new_arguments[i] = ft_expand(token->name, minishell);
+		new_arguments[i] = expanded;
 	}
-	if (!new_arguments[i])
-		return (1);
 	free(command->arguments);
 	command->arguments = new_arguments;
 	return (0);

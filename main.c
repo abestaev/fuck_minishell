@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 09:48:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/17 19:47:56 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:37:29 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ int	init_command(t_minishell *minishell, char *input)
 		return (1);
 	}
 	if (parsing(minishell))
+	{
+		free_token(minishell->token);
+		minishell->token = NULL;
 		return (printf("error parsing\n"), 1);
+	}
 	free_token(minishell->token);
 	minishell->token = NULL;
 	return (0);
@@ -66,6 +70,17 @@ int	ft_exec(t_minishell *minishell, char *input)
 	return (0);
 }
 
+static inline void	ft_check_status(t_minishell *minishell)
+{
+	signal(SIGINT, SIG_IGN);
+	if (g_signal_received)
+	{
+		if (g_signal_received == SIGINT)
+			minishell->exit_status = 130;
+		g_signal_received = 0;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*input;
@@ -80,13 +95,7 @@ int	main(int ac, char **av, char **env)
 	{
 		ft_signal(minishell);
 		input = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
-		signal(SIGINT, SIG_IGN);
-		if (g_signal_received)
-		{
-			if (g_signal_received == SIGINT)
-				minishell->exit_status = 130;
-			g_signal_received = 0;
-		}
+		ft_check_status(minishell);
 		if (!input)
 			break ;
 		if (!*input)
@@ -97,5 +106,6 @@ int	main(int ac, char **av, char **env)
 		free_all_commands(minishell);
 		free(input);
 	}
-	return (ft_close(&minishell->old_fd[0]), ft_close(&minishell->old_fd[1]), free_env(minishell->env), 0);
+	return (ft_close(&minishell->old_fd[0]), ft_close(&minishell->old_fd[1]),
+		free_env(minishell->env), 0);
 }

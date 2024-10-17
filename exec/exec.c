@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/17 19:54:16 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:38:07 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ int	run_single_cmd(t_command *command, t_minishell *minishell)
 
 int	ft_wait(t_minishell *minishell)
 {
-	int			last_status;
 	t_command	*tmp;
 
-	last_status = 0;
 	tmp = minishell->command;
 	while (tmp)
 	{
@@ -90,7 +88,8 @@ int	exec_path_cmd(t_command *cmd, t_minishell *minishell, char **env,
 
 	if (access(cmd->command, F_OK))
 	{
-		ft_dprintf(2, "minishell: %s: No such file or directory\n", cmd->command);
+		ft_dprintf(2, "minishell: %s: No such file or directory\n",
+			cmd->command);
 		return (free_tab(path), free_tab(env), exit_shell(minishell, 127), 1);
 	}
 	if (!stat(cmd->command, &stats) && S_ISDIR(stats.st_mode))
