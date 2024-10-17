@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:04:08 by albestae          #+#    #+#             */
-/*   Updated: 2024/10/15 18:05:24 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:30:16 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	execute_child_process(t_command *command, t_minishell *minishell)
 			exit(exec_builtin(command, minishell));
 		else if (exec_cmd(command, minishell))
 		{
+			ft_printf("%s: command not found\n", command->command);
 			free_all_commands(minishell);
 			free_env(minishell->env);
 			exit(127);

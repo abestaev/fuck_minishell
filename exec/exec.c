@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:32:19 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/17 13:21:09 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:33:06 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	fork_and_execute(t_command *command, t_minishell *minishell)
 		get_redir(command);
 		if (exec_cmd(command, minishell))
 		{
+			ft_printf("%s: command not found\n", command->command);
 			minishell->exit_status = 127;
 			exit_shell(minishell, 127, false);
 		}
@@ -102,7 +103,10 @@ int	exec_cmd(t_command *cmd, t_minishell *minishell)
 	env = env_to_tab(minishell->env);
 	if (ft_strchr(cmd->command, '/'))
 		if (execve(cmd->command, cmd->arguments, env))
+		{
+			ft_printf("%s: command not found\n", cmd->command);
 			return (free_tab(path), free_tab(env), 1);
+		}
 	i = 0;
 	while (path && path[i])
 	{

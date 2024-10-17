@@ -6,7 +6,7 @@
 /*   By: albestae <albestae@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 23:38:45 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/17 13:27:15 by albestae         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:34:52 by albestae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int	exit_shell(t_minishell *minishell, int exit_code, bool display)
 {
 	if (display)
 		ft_putstr_fd("exit\n", 2);
+	close(minishell->old_fd[0]);
+	close(minishell->old_fd[1]);
 	free_all_commands(minishell);
 	free_env(minishell->env);
 	exit(exit_code);
