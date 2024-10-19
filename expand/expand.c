@@ -6,7 +6,7 @@
 /*   By: ssitchsa <ssitchsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:14:03 by ssitchsa          #+#    #+#             */
-/*   Updated: 2024/10/15 17:00:41 by ssitchsa         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:24:42 by ssitchsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char	*ft_expand(char *str, t_minishell *minishell)
 	int		i;
 	int		q_idx;
 
+	ft_dprintf(2, "len = %d\n", get_expand_len(str, minishell));
 	res = ft_calloc(get_expand_len(str, minishell) + 1, sizeof(char));
 	if (!res)
 		return (NULL);
